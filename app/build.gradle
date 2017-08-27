@@ -1,0 +1,139 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+kapt {
+    correctErrorTypes = true
+}
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.1"
+    defaultConfig {
+        applicationId "com.kennah.wecatch"
+        minSdkVersion 17
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        externalNativeBuild {
+            cmake {
+                arguments '-DANDROID_TOOLCHAIN=clang'
+            }
+        }
+        ndk {
+            moduleName 'secret_lib'
+            abiFilters 'x86', 'x86_64', 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+        }
+
+        multiDexEnabled true
+
+    }
+
+    signingConfigs {
+        release {
+
+            Properties properties = new Properties()
+            InputStream inputStream = project.rootProject.file('local.properties').newDataInputStream() ;
+            properties.load(inputStream)
+
+            def key_keyAlias = properties.getProperty('key.alias')
+            def key_keyPassword = properties.getProperty('store.password')
+            def key_storePassword = properties.getProperty('store.password')
+
+            storeFile file('keystore/key.jks')
+            storePassword key_storePassword
+            keyAlias key_keyAlias
+            keyPassword key_keyPassword
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path "src/main/cpp/CMakeLists.txt"
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+    }
+}
+
+kotlin { experimental { coroutines 'enable' } }
+
+def support = '26.0.1'
+def play = '11.2.0'
+def retrofit = '2.3.0'
+def logger = '3.4.1'
+def anko = '0.10.1'
+def butterKnife = '8.8.1'
+def dagger = '2.11'
+def permission = '2.4.0'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'com.android.support:multidex:1.0.1'
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "com.android.support:appcompat-v7:${support}"
+    implementation "com.android.support:recyclerview-v7:${support}"
+    implementation "com.android.support:design:${support}"
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+
+    implementation "com.google.android.gms:play-services-maps:${play}"
+    implementation("com.google.android.gms:play-services-location:${play}") {
+        exclude group: 'com.google.android.gms'
+    }
+
+    implementation "org.jetbrains.anko:anko:${anko}"
+    implementation "org.jetbrains.anko:anko-coroutines:${anko}"
+
+    implementation "com.squareup.retrofit2:retrofit:${retrofit}"
+    implementation("com.squareup.retrofit2:converter-jackson:${retrofit}") {
+        exclude group: 'com.square.retrofit2'
+    }
+
+    implementation "com.squareup.okhttp3:logging-interceptor:${logger}"
+
+    implementation "com.jakewharton:butterknife:${butterKnife}"
+    kapt "com.jakewharton:butterknife-compiler:${butterKnife}"
+
+    implementation "com.google.dagger:dagger:${dagger}"
+    implementation "com.google.dagger:dagger-android-support:${dagger}"
+    kapt "com.google.dagger:dagger-android-processor:${dagger}"
+    kapt "com.google.dagger:dagger-compiler:${dagger}"
+
+    implementation("com.github.hotchemi:permissionsdispatcher:${permission}") {
+        // if you don't use android.app.Fragment you can exclude support for them
+        exclude module: "support-v13"
+    }
+    kapt "com.github.hotchemi:permissionsdispatcher-processor:${permission}"
+
+    implementation 'org.hashids:hashids:1.0.1'
+
+    implementation 'io.reactivex.rxjava2:rxkotlin:2.1.0'
+
+    implementation ('io.reactivex.rxjava2:rxandroid:2.0.1') {
+        exclude group: "io.reactivex.rxjava2"
+    }
+
+    implementation ('com.afollestad.material-dialogs:core:0.9.4.7') {
+        exclude group: "com.android.support"
+    }
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.0'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.0'
+}

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+    <RelativeLayout
+        android:id="@+id/loading_wrapper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/bg_loading"
+        android:padding="16dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/loading"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_pokeball" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/scan"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="16dp"
+        android:background="@drawable/button"
+        android:layout_alignParentBottom="true"
+        android:elevation="2dp"
+        android:scaleType="center"
+        android:src="@drawable/ic_search" />
+
+    <ImageView
+        android:id="@+id/filter"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_above="@id/scan"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/button"
+        android:elevation="2dp"
+        android:scaleType="center"
+        android:src="@drawable/ic_filter" />
+
+</RelativeLayout>

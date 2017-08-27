@@ -1,0 +1,11 @@
+*.iml
+.gradle
+local.properties
+/.idea
+.DS_Store
+build
+/captures
+.externalNativeBuild
+/app/src/main/cpp/
+/app/src/main/java/com/kennah/wecatch/local/utils/WeCatchUtils.kt
+/app/keystore

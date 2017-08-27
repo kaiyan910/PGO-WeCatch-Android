@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_centerVertical="true" />
+
+    <android.support.v7.widget.AppCompatCheckBox
+        android:id="@+id/choice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        app:buttonTint="@color/colorPrimary" />
+
+    <TextView
+        android:id="@+id/raid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/icon"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@id/choice"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:textSize="18sp" />
+
+</RelativeLayout>
