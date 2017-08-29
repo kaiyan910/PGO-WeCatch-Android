@@ -1,6 +1,5 @@
 package com.kennah.wecatch.local.service
 
-import android.app.Application
 import android.content.Context
 import com.kennah.wecatch.core.utils.ServiceUtils
 import com.kennah.wecatch.local.API
@@ -31,7 +30,7 @@ class WeCatchService @Inject constructor (private val context: Context, private 
             val neLat = MathUtils.toDecimal6(neHK[0])
             val neLng = MathUtils.toDecimal6(neHK[1])
 
-            api.getPokemonList(token, swLat, swLng, neLat, neLng).execute()
+            api.getRareList(token, swLat, swLng, neLat, neLng).execute()
         }
     }
 

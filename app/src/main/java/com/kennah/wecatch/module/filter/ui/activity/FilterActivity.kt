@@ -5,6 +5,9 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.Toolbar
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import butterknife.BindView
 import com.kennah.wecatch.R
 import com.kennah.wecatch.core.base.BaseActivity

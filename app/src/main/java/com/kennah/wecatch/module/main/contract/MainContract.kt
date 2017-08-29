@@ -13,6 +13,6 @@ interface MainContract {
     }
 
     interface Presenter: BasePresenter<View> {
-        fun getPokemon(bound: LatLngBounds)
+        fun getPokemon(bound: LatLngBounds, zoom: Float)
     }
 }

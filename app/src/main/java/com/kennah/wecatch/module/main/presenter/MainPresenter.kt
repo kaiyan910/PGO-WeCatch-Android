@@ -16,15 +16,24 @@ import javax.inject.Inject
 class MainPresenter @Inject constructor(val view: MainContract.View, private val service: DataService, private val filterManager: FilterManager) :
         CommonPresenter<MainContract.View>(view), MainContract.Presenter {
 
-    override fun getPokemon(bound: LatLngBounds) {
+    override fun getPokemon(bound: LatLngBounds, zoom: Float) {
 
         val ne: Array<Double> = arrayOf(bound.northeast.latitude, bound.northeast.longitude)
         val sw: Array<Double> = arrayOf(bound.southwest.latitude, bound.southwest.longitude)
 
         async(UI) {
 
+            val rare = when {
+                zoom <= 13F -> true
+                else -> false
+            }
+
             val response = bg {
-                service.getPokemonList(ne, sw)
+                if (rare) {
+                    service.getRarePokemonList()
+                } else {
+                    service.getPokemonList(ne, sw)
+                }
             }
 
             val weCatch = response.await()
@@ -34,14 +43,22 @@ class MainPresenter @Inject constructor(val view: MainContract.View, private val
                 val pokemonList = weCatch.pokemons
                         .map { WeCatchUtils.decode(it) }
                         .filter {
-                            bound.contains(LatLng(it.latitude, it.longitude)) &&
-                                    !filterManager.inPokemonFilter(it.pokemonId)
+                            if (rare) {
+                                !filterManager.inPokemonFilter(it.pokemonId)
+                            } else {
+                                bound.contains(LatLng(it.latitude, it.longitude)) &&
+                                        !filterManager.inPokemonFilter(it.pokemonId)
+                            }
                         }
 
                 val gymList = weCatch.gyms
                         .filter {
-                            bound.contains(LatLng(it.location[1], it.location[0])) &&
-                                    !filterManager.inGymFilter(it.raidLevel)
+                            if (rare) {
+                                !filterManager.inGymFilter(it.raidLevel)
+                            } else {
+                                bound.contains(LatLng(it.location[1], it.location[0])) &&
+                                        !filterManager.inGymFilter(it.raidLevel)
+                            }
                         }
 
                 ProcessedData(pokemonList, gymList)

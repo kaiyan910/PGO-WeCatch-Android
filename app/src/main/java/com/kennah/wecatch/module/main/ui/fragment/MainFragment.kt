@@ -3,6 +3,9 @@ package com.kennah.wecatch.module.main.ui.fragment
 import android.Manifest
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -45,8 +48,12 @@ import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
 import java.util.concurrent.TimeUnit
 
-class MainFragment : BaseFragment(), MainContract.View, OnMapReadyCallback, GoogleMap.InfoWindowAdapter, GoogleMap.OnInfoWindowClickListener {
-
+class MainFragment : BaseFragment(),
+        MainContract.View,
+        OnMapReadyCallback,
+        GoogleMap.InfoWindowAdapter,
+        GoogleMap.OnInfoWindowClickListener,
+        GoogleMap.OnCameraMoveListener {
 
     private val DEFAULT = LatLng(22.296039, 114.172416)
 
@@ -107,8 +114,12 @@ class MainFragment : BaseFragment(), MainContract.View, OnMapReadyCallback, Goog
 
         showLoading()
         mExpireCheckFlag = false
-        mPresenter.getPokemon(mMap.projection.visibleRegion.latLngBounds)
+        mPresenter.getPokemon(mMap.projection.visibleRegion.latLngBounds, mMap.cameraPosition.zoom)
         mScanning = true
+    }
+
+    override fun onCameraMove() {
+        LogUtils.debug(this, "zoom=[%f]", mMap.cameraPosition.zoom)
     }
 
     override fun onError(errorCode: Int) {
@@ -165,26 +176,25 @@ class MainFragment : BaseFragment(), MainContract.View, OnMapReadyCallback, Goog
 
     override fun getInfoContents(marker: Marker): View? {
 
-        if (marker.tag is Pokemon) {
-
-            val pokemon = marker.tag as Pokemon
-            val window = MapPokemonWindow(activity.applicationContext)
-            window.apply {
-                bind(pokemon, marker)
+        return when (marker.tag) {
+            is Pokemon -> {
+                val pokemon = marker.tag as Pokemon
+                val window = MapPokemonWindow(activity.applicationContext)
+                window.apply {
+                    bind(pokemon, marker)
+                }
+                window
             }
-            return window
-
-        } else if (marker.tag is Gym) {
-
-            val gym = marker.tag as Gym
-            val window = MapGymWindow(activity.applicationContext)
-            window.apply {
-                bind(gym, marker)
+            is Gym -> {
+                val gym = marker.tag as Gym
+                val window = MapGymWindow(activity.applicationContext)
+                window.apply {
+                    bind(gym, marker)
+                }
+                window
             }
-            return window
+            else -> null
         }
-
-        return null
     }
 
     override fun getInfoWindow(marker: Marker): View? {
@@ -218,6 +228,7 @@ class MainFragment : BaseFragment(), MainContract.View, OnMapReadyCallback, Goog
             uiSettings.isMapToolbarEnabled = false
             setInfoWindowAdapter(this@MainFragment)
             setOnInfoWindowClickListener(this@MainFragment)
+            setOnCameraMoveListener(this@MainFragment)
 
             hasPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) {
                 uiSettings.isMyLocationButtonEnabled = true
