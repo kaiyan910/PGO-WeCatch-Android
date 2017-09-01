@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.FrameLayout
+import butterknife.BindString
 import butterknife.BindView
 import butterknife.OnClick
 import com.kennah.wecatch.R
@@ -30,6 +31,10 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
 
     @BindView(R.id.container)
     lateinit var mLayoutContainer: FrameLayout
+    @BindString(R.string.permission_location_title)
+    lateinit var mStringLocationTitle: String
+    @BindString(R.string.permission_location_message)
+    lateinit var mStringLocationMessage: String
 
     @Inject
     lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
@@ -57,7 +62,7 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
     @OnShowRationale(Manifest.permission.ACCESS_FINE_LOCATION)
     fun showRationaleForLocation(request: PermissionRequest) {
 
-        alert("Please give me LOCATION permission", "Permission needed!") {
+        alert(mStringLocationMessage, mStringLocationTitle) {
             yesButton { request.proceed() }
             noButton { request.cancel() }
         }.show()

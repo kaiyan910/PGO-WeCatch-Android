@@ -54,10 +54,11 @@ class MainPresenter @Inject constructor(val view: MainContract.View, private val
                 val gymList = weCatch.gyms
                         .filter {
                             if (rare) {
-                                !filterManager.inGymFilter(it.raidLevel)
+                                !filterManager.inGymFilter(it.raidLevel) && !filterManager.inPokemonFilter(it.raidPokemonId)
                             } else {
                                 bound.contains(LatLng(it.location[1], it.location[0])) &&
-                                        !filterManager.inGymFilter(it.raidLevel)
+                                        !filterManager.inGymFilter(it.raidLevel) &&
+                                        !filterManager.inPokemonFilter(it.raidPokemonId)
                             }
                         }
 

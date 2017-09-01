@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="48dp"
-    android:layout_height="48dp"
-    android:padding="4dp">
+    android:layout_width="@dimen/marker_size"
+    android:layout_height="@dimen/marker_size"
+    android:padding="@dimen/spacing_4">
 
     <RelativeLayout
         android:id="@+id/gym_wrapper"
@@ -12,8 +12,8 @@
 
         <ImageView
             android:id="@+id/team"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
+            android:layout_width="@dimen/marker_team_size"
+            android:layout_height="@dimen/marker_team_size"
             android:layout_centerInParent="true"
             android:src="@drawable/ic_gym_0"/>
 
@@ -21,8 +21,7 @@
             android:id="@+id/number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1"
-            android:textSize="10sp"
+            android:textSize="@dimen/fontSize_10"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:gravity="center"

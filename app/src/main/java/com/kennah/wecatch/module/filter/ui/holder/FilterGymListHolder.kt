@@ -4,6 +4,7 @@ import android.content.Context
 import android.support.v7.widget.AppCompatCheckBox
 import android.widget.ImageView
 import android.widget.TextView
+import butterknife.BindString
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnCheckedChanged
@@ -18,6 +19,11 @@ class FilterGymListHolder(context: Context) : BaseHolder<Int>(context) {
     lateinit var mTextRaid: TextView
     @BindView(R.id.choice)
     lateinit var mCheckBoxChoice: AppCompatCheckBox
+
+    @BindString(R.string.filter_gym)
+    lateinit var mStringGym: String
+    @BindString(R.string.filter_raid)
+    lateinit var mStringRaid: String
 
     private lateinit var mCallback: (Int, Boolean) -> Unit
 
@@ -43,8 +49,8 @@ class FilterGymListHolder(context: Context) : BaseHolder<Int>(context) {
         })
 
         mTextRaid.text = when (data) {
-            0 -> "Gym"
-            else -> "Raid Level $data"
+            0 -> mStringGym
+            else -> String.format(mStringRaid, data)
         }
 
         mCheckBoxChoice.isChecked = !filtered

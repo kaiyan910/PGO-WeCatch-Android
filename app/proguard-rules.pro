@@ -40,6 +40,12 @@
     public static final org.codehaus.jackson.annotate.JsonAutoDetect$Visibility *;
 }
 
+-keepattributes *Annotation*
+-keepclassmembers class ** {
+    @com.squareup.otto.Subscribe public *;
+    @com.squareup.otto.Produce public *;
+}
+
 -dontwarn com.google.errorprone.annotations.*
 
 -keep public class com.kennah.wecatch.local.model.** { *; }

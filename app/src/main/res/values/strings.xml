@@ -1,5 +1,19 @@
 <resources>
-    <string name="app_name">WeCatch Android</string>
+    <string name="app_name">WeCatch</string>
+
+    <string name="permission_location_title">Permission</string>
+    <string name="permission_location_message">Location permission is required to get your current location.</string>
 
     <string name="filter_title">Filter</string>
+
+    <string-array name="filter_tab">
+        <item>RAID</item>
+        <item>POKEMON</item>
+    </string-array>
+
+    <string name="filter_gym">GYM</string>
+    <string name="filter_raid">Raid Level %d</string>
+
+    <string name="gymWindow_no_raid">No raid battle yet.</string>
+
 </resources>

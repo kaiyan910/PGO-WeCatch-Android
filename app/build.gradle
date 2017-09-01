@@ -16,7 +16,7 @@ android {
         minSdkVersion 17
         targetSdkVersion 26
         versionCode 1
-        versionName "1.0.1"
+        versionName "1.0.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         externalNativeBuild {
@@ -132,6 +132,8 @@ dependencies {
     implementation ('com.afollestad.material-dialogs:core:0.9.4.7') {
         exclude group: "com.android.support"
     }
+
+    implementation 'com.squareup:otto:1.3.8'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.0'

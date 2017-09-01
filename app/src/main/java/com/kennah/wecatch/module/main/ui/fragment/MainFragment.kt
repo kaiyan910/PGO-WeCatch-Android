@@ -52,8 +52,7 @@ class MainFragment : BaseFragment(),
         MainContract.View,
         OnMapReadyCallback,
         GoogleMap.InfoWindowAdapter,
-        GoogleMap.OnInfoWindowClickListener,
-        GoogleMap.OnCameraMoveListener {
+        GoogleMap.OnInfoWindowClickListener {
 
     private val DEFAULT = LatLng(22.296039, 114.172416)
 
@@ -116,10 +115,6 @@ class MainFragment : BaseFragment(),
         mExpireCheckFlag = false
         mPresenter.getPokemon(mMap.projection.visibleRegion.latLngBounds, mMap.cameraPosition.zoom)
         mScanning = true
-    }
-
-    override fun onCameraMove() {
-        LogUtils.debug(this, "zoom=[%f]", mMap.cameraPosition.zoom)
     }
 
     override fun onError(errorCode: Int) {
@@ -228,7 +223,6 @@ class MainFragment : BaseFragment(),
             uiSettings.isMapToolbarEnabled = false
             setInfoWindowAdapter(this@MainFragment)
             setOnInfoWindowClickListener(this@MainFragment)
-            setOnCameraMoveListener(this@MainFragment)
 
             hasPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) {
                 uiSettings.isMyLocationButtonEnabled = true

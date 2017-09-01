@@ -5,6 +5,8 @@ import com.kennah.wecatch.core.utils.LogUtils
 
 class FilterManager(private val preference: SharedPreferences) {
 
+    private val MAX: Int = 251
+
     private val GYM_FILTER: String = "gym_filter"
     private val POKEMON_FILTER: String = "pokemon_filter"
 
@@ -24,12 +26,29 @@ class FilterManager(private val preference: SharedPreferences) {
         mGymFilter.remove(type.toString())
     }
 
-    fun removeFromPokemonFilter(number: Int) {
-        mPokemonFilter.remove(number.toString())
+    fun removeAllGymFilter() {
+        mGymFilter.clear()
+    }
+
+    fun addAllGymFilter() {
+        mGymFilter.clear()
+        mGymFilter.addAll(listOf("0", "1", "2", "3", "4", "5"))
     }
 
     fun addToGymFilter(type: Int) {
         mGymFilter.add(type.toString())
+    }
+
+    fun removeFromPokemonFilter(number: Int) {
+        mPokemonFilter.remove(number.toString())
+    }
+
+    fun removeAllPokemonFilter() {
+        mPokemonFilter.clear()
+    }
+
+    fun addAllPokemonFilter() {
+        (1..MAX).forEach { addToPokemonFilter(it) }
     }
 
     fun addToPokemonFilter(number: Int) {
@@ -37,10 +56,6 @@ class FilterManager(private val preference: SharedPreferences) {
     }
 
     fun save() {
-
-        LogUtils.debug(this, mGymFilter.joinToString(","), "")
-        LogUtils.debug(this, mPokemonFilter.joinToString(","), "")
-
         preference.edit()
                 .putString(GYM_FILTER, mGymFilter.joinToString(","))
                 .putString(POKEMON_FILTER, mPokemonFilter.joinToString(","))

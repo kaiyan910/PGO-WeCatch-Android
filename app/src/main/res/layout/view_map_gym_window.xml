@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="150dp"
+    android:layout_width="@dimen/gymWindow_width"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
@@ -15,7 +15,7 @@
             android:id="@+id/team_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
+            android:layout_margin="@dimen/spacing_4"
             android:layout_gravity="center" />
 
         <TextView
@@ -47,8 +47,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="2dp"
-        android:text="No raid battle yet."
+        android:padding="@dimen/spacing_2"
+        android:text="@string/gymWindow_no_raid"
         android:textColor="@color/colorPrimary"
         android:textStyle="bold"
         android:visibility="gone" />

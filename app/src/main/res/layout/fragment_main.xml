@@ -15,38 +15,38 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:background="@drawable/bg_loading"
-        android:padding="16dp"
+        android:padding="@dimen/spacing_16"
         android:visibility="gone">
 
         <ImageView
             android:id="@+id/loading"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="@dimen/loading_size"
+            android:layout_height="@dimen/loading_size"
             android:src="@drawable/ic_pokeball" />
 
     </RelativeLayout>
 
     <ImageView
         android:id="@+id/scan"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:layout_width="@dimen/main_icon_size"
+        android:layout_height="@dimen/main_icon_size"
         android:layout_alignParentEnd="true"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/spacing_16"
         android:background="@drawable/button"
         android:layout_alignParentBottom="true"
-        android:elevation="2dp"
+        android:elevation="@dimen/main_icon_elevation"
         android:scaleType="center"
         android:src="@drawable/ic_search" />
 
     <ImageView
         android:id="@+id/filter"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:layout_width="@dimen/main_icon_size"
+        android:layout_height="@dimen/main_icon_size"
         android:layout_above="@id/scan"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="@dimen/spacing_16"
         android:background="@drawable/button"
-        android:elevation="2dp"
+        android:elevation="@dimen/main_icon_elevation"
         android:scaleType="center"
         android:src="@drawable/ic_filter" />
 

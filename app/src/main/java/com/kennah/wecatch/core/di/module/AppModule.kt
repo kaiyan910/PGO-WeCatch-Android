@@ -9,6 +9,7 @@ import com.kennah.wecatch.core.di.AppScope
 import com.kennah.wecatch.core.helper.LocationHelper
 import com.kennah.wecatch.local.FilterManager
 import com.kennah.wecatch.module.filter.di.FilterScope
+import com.squareup.otto.Bus
 import dagger.Module
 import dagger.Provides
 
@@ -30,4 +31,8 @@ class AppModule {
     @Provides
     @AppScope
     fun provideFilterManager(preference: SharedPreferences): FilterManager = FilterManager(preference)
+
+    @Provides
+    @AppScope
+    fun provideOttoBus(): Bus = Bus()
 }

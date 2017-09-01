@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="fontSize_10">10sp</dimen>
+    <dimen name="fontSize_12">12sp</dimen>
+    <dimen name="fontSize_14">14sp</dimen>
+    <dimen name="fontSize_16">16sp</dimen>
+    <dimen name="fontSize_18">18sp</dimen>
+
+    <dimen name="spacing_2">2dp</dimen>
+    <dimen name="spacing_4">4dp</dimen>
+    <dimen name="spacing_8">8dp</dimen>
+    <dimen name="spacing_16">16dp</dimen>
+
+    <dimen name="filter_indicator_height">2dp</dimen>
+    <dimen name="filter_holder_icon_size">36dp</dimen>
+
+    <dimen name="main_icon_size">56dp</dimen>
+    <dimen name="main_icon_elevation">2dp</dimen>
+
+    <dimen name="marker_size">48dp</dimen>
+    <dimen name="marker_team_size">28dp</dimen>
+
+    <dimen name="gymWindow_width">150dp</dimen>
+
+    <dimen name="loading_size">24dp</dimen>
+</resources>

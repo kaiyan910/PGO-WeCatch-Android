@@ -6,17 +6,17 @@ import android.support.v4.app.FragmentStatePagerAdapter
 import com.kennah.wecatch.module.filter.ui.fragment.FilterGymFragment
 import com.kennah.wecatch.module.filter.ui.fragment.FilterPokemonFragment
 
-class FilterPagerAdapter(manager: FragmentManager) : FragmentStatePagerAdapter(manager) {
+class FilterPagerAdapter(manager: FragmentManager, private val titles: Array<String>) : FragmentStatePagerAdapter(manager) {
 
-    override fun getItem(position: Int): Fragment = when(position) {
-        0 -> FilterGymFragment()
-        else -> FilterPokemonFragment()
-    }
+    private var mFragmentList: ArrayList<Fragment> = ArrayList()
 
-    override fun getCount(): Int = 2
+    override fun getItem(position: Int): Fragment = mFragmentList[position]
 
-    override fun getPageTitle(position: Int): CharSequence = when (position) {
-        0 -> "RAID"
-        else -> "POKEMON"
+    override fun getCount(): Int = mFragmentList.size
+
+    override fun getPageTitle(position: Int): CharSequence = titles[position]
+
+    fun setFragmentList(fragments: ArrayList<Fragment>) {
+        mFragmentList.addAll(fragments)
     }
 }
