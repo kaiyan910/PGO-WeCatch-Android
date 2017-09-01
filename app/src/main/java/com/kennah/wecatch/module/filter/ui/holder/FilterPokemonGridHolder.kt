@@ -8,6 +8,7 @@ import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnCheckedChanged
+import butterknife.OnClick
 import com.kennah.wecatch.R
 import com.kennah.wecatch.core.base.BaseHolder
 import com.kennah.wecatch.core.utils.ResourceUtils
@@ -36,6 +37,12 @@ class FilterPokemonGridHolder(context: Context): BaseHolder<Int>(context) {
         mCallback(mData, choice)
     }
 
+    @OnClick(R.id.background)
+    fun onBackgroundClick() {
+        mCheckBoxChoice.isChecked = !mCheckBoxChoice.isChecked
+        onChoiceChange(mCheckBoxChoice.isChecked)
+    }
+
     fun bind(data: Int, filtered: Boolean, cb: (Int, Boolean) -> Unit) {
         super.bind(data)
 
@@ -47,9 +54,9 @@ class FilterPokemonGridHolder(context: Context): BaseHolder<Int>(context) {
         mCheckBoxChoice.isChecked = !filtered
 
         mLayoutBackground.setBackgroundResource(if (data % 2 == 0) {
-            R.color.row
+            R.drawable.bg_holder_even
         } else {
-            android.R.color.white
+            R.drawable.bg_holder_odd
         })
     }
 }

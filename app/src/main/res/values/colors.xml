@@ -5,4 +5,5 @@
     <color name="colorAccent">#0c102d</color>
 
     <color name="row">#fafafa</color>
+    <color name="row_pressed">#c2c2c2</color>
 </resources>
