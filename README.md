@@ -6,6 +6,9 @@ In order to protect the website, the security part is not included in this proje
 
 <img src="https://raw.githubusercontent.com/kaiyan910/PGO-WeCatch-Android/master/screenshot_1.png" width="300"> <img src="https://raw.githubusercontent.com/kaiyan910/PGO-WeCatch-Android/master/screenshot_2.png" width="300">
 
+## v1.0.3
+- Support IV display
+
 ## v1.0.2
 
 - Rare search also apply filter now
