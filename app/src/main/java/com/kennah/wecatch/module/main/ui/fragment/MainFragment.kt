@@ -2,6 +2,7 @@ package com.kennah.wecatch.module.main.ui.fragment
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -44,6 +45,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Action
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.view_map_pokemon_window.*
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
 import java.util.concurrent.TimeUnit
@@ -136,11 +138,7 @@ class MainFragment : BaseFragment(),
                 }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ pokemon ->
-                    val options = MarkerOptions().position(LatLng(pokemon.latitude, pokemon.longitude))
-                    options.icon(BitmapDescriptorFactory.fromResource(ResourceUtils.getDrawableResource(activity, "pkm_${pokemon.pokemonId}")))
-                    val marker: Marker = mMap.addMarker(options)
-                    marker.tag = pokemon
-                    mPokemonMarkerList.add(marker)
+                    createPokemonMarker(pokemon)
                 }, { _ ->
                     LogUtils.debug(this, "ERROR")
                 }, {
@@ -229,6 +227,29 @@ class MainFragment : BaseFragment(),
                 isMyLocationEnabled = true
             }
         }
+    }
+
+    private fun createPokemonMarker(pokemon: Pokemon) {
+        val options = MarkerOptions().position(LatLng(pokemon.latitude, pokemon.longitude))
+        val resource = ResourceUtils.getDrawableResource(context, "pkm_${pokemon.pokemonId}")
+
+        if (pokemon.iv >= 80) {
+
+            val color = when(pokemon.iv) {
+                in 80..89 -> 0xFF006DF0.toInt()
+                in 90..99 -> 0xFF91DC5A.toInt()
+                else -> 0xFFD80027.toInt()
+            }
+
+            val bm = BitmapFactory.decodeResource(resources, resource)
+            options.icon(BitmapDescriptorFactory.fromBitmap(CommonUtils.highlightImage(bm, color)))
+        } else {
+            options.icon(BitmapDescriptorFactory.fromResource(ResourceUtils.getDrawableResource(activity, "pkm_${pokemon.pokemonId}")))
+        }
+
+        val marker: Marker = mMap.addMarker(options)
+        marker.tag = pokemon
+        mPokemonMarkerList.add(marker)
     }
 
     private fun expireCheck() {

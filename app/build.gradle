@@ -13,10 +13,10 @@ android {
     buildToolsVersion "26.0.1"
     defaultConfig {
         applicationId "com.kennah.wecatch"
-        minSdkVersion 17
+        minSdkVersion 21
         targetSdkVersion 26
         versionCode 1
-        versionName "1.0.2"
+        versionName "1.0.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         externalNativeBuild {
@@ -72,7 +72,7 @@ android {
 
 kotlin { experimental { coroutines 'enable' } }
 
-def support = '26.0.1'
+def support = '26.0.2'
 def play = '11.2.0'
 def retrofit = '2.3.0'
 def logger = '3.4.1'

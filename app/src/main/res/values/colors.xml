@@ -4,6 +4,11 @@
     <color name="colorPrimaryDark">#1c8293</color>
     <color name="colorAccent">#0c102d</color>
 
+    <color name="divider">#bab0b0</color>
+
     <color name="row">#fafafa</color>
     <color name="row_pressed">#c2c2c2</color>
+
+    <color name="iv">#e21b1b</color>
+    <color name="iv_details">#8b8b8b</color>
 </resources>

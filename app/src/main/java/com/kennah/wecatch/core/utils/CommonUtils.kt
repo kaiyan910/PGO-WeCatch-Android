@@ -1,13 +1,13 @@
 package com.kennah.wecatch.core.utils
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Point
+import android.graphics.*
 import android.net.ConnectivityManager
 import android.view.View
 import android.view.WindowManager
 import com.kennah.wecatch.core.exception.NetworkException
+import android.graphics.BlurMaskFilter.Blur
+
 
 object CommonUtils {
 
@@ -58,5 +58,34 @@ object CommonUtils {
         view.draw(c)
 
         return bitmap
+    }
+
+    fun highlightImage(src: Bitmap, color: Int): Bitmap {
+
+        // create new bitmap, which will be painted and becomes result image
+        val bmOut = Bitmap.createBitmap(src.width, src.height, Bitmap.Config.ARGB_8888)
+        // setup canvas for painting
+        val canvas = Canvas(bmOut)
+        // setup default color
+        canvas.drawColor(0, PorterDuff.Mode.CLEAR)
+        // create a blur paint for capturing alpha
+        val ptBlur = Paint()
+        ptBlur.maskFilter = BlurMaskFilter(25f, Blur.SOLID)
+        val offsetXY = IntArray(2)
+        // capture alpha into a bitmap
+        val bmAlpha = src.extractAlpha(ptBlur, offsetXY)
+        // create a color paint
+        val ptAlphaColor = Paint()
+        ptAlphaColor.color = color
+        // paint color for captured alpha region (bitmap)
+        canvas.drawBitmap(bmAlpha, offsetXY[0].toFloat(), offsetXY[1].toFloat(), ptAlphaColor)
+        // free memory
+        bmAlpha.recycle()
+
+        // paint the image source
+        canvas.drawBitmap(src, 0f, 0f, null)
+
+        // return out final image
+        return bmOut
     }
 }

@@ -11,6 +11,7 @@ class WeCatchPokemon(
         @JsonProperty("defense") val defense: Int?,
         @JsonProperty("stamina") val stamina: Int?,
         @JsonProperty("cp") val cp: Int?,
+        @JsonProperty("iv") val iv: Int?,
         @JsonProperty("move1") val move1: Int?,
         @JsonProperty("move2") val move2: Int?,
         @JsonProperty("location") val location: Array<Double>
