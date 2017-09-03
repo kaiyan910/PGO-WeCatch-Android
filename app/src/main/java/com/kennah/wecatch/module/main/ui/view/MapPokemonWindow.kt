@@ -14,6 +14,7 @@ import com.kennah.wecatch.core.utils.ResourceUtils
 import com.kennah.wecatch.core.utils.TimeUtils
 import com.kennah.wecatch.core.withDelay
 import com.kennah.wecatch.local.model.Pokemon
+import com.kennah.wecatch.local.utils.ColorUtils
 import org.jetbrains.anko.textColor
 import java.text.SimpleDateFormat
 import java.util.*
@@ -69,12 +70,7 @@ class MapPokemonWindow(context: Context) : LinearLayout(context) {
         if (pokemon.iv != -1) {
             mLayoutPokemonDetails.visibility = View.VISIBLE
             mTextIv.text = String.format(mStringIv, pokemon.iv)
-            mTextIv.textColor = when(pokemon.iv) {
-                in 80..89 -> 0xFF006DF0.toInt()
-                in 90..99 -> 0xFF91DC5A.toInt()
-                100 -> 0xFFD80027.toInt()
-                else -> 0xFF000000.toInt()
-            }
+            mTextIv.textColor = ColorUtils.getPokemonColor(pokemon.iv)
             mTextIvAttack.text = pokemon.attack.toString()
             mTextIvDefense.text = pokemon.defense.toString()
             mTextIvStamina.text = pokemon.stamina.toString()

@@ -32,6 +32,7 @@ import com.kennah.wecatch.core.utils.TimeUtils
 import com.kennah.wecatch.core.withDelay
 import com.kennah.wecatch.local.model.Gym
 import com.kennah.wecatch.local.model.Pokemon
+import com.kennah.wecatch.local.utils.ColorUtils
 import com.kennah.wecatch.module.main.contract.MainContract
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -43,9 +44,10 @@ import javax.inject.Inject
 @SuppressLint("ViewConstructor")
 class PokemonMapView @Inject constructor(context: Context,
                                          private val presenter: MainContract.Presenter,
-                                         private val locationHelper: LocationHelper): RelativeLayout(context),
+                                         private val locationHelper: LocationHelper) : RelativeLayout(context),
         MainContract.View,
         OnMapReadyCallback,
+        GoogleMap.OnMarkerClickListener,
         GoogleMap.InfoWindowAdapter,
         GoogleMap.OnInfoWindowClickListener {
 
@@ -126,6 +128,7 @@ class PokemonMapView @Inject constructor(context: Context,
             uiSettings.isMapToolbarEnabled = false
             setInfoWindowAdapter(this@PokemonMapView)
             setOnInfoWindowClickListener(this@PokemonMapView)
+            setOnMarkerClickListener(this@PokemonMapView)
 
             hasPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) {
                 uiSettings.isMyLocationButtonEnabled = true
@@ -176,6 +179,21 @@ class PokemonMapView @Inject constructor(context: Context,
 
     }
 
+    override fun onMarkerClick(marker: Marker): Boolean {
+
+        val zoom = mMap.cameraPosition.zoom
+        val cameraUpdate = CameraUpdateFactory
+                .newLatLngZoom(
+                        LatLng(marker.position.latitude + 120 / Math.pow(2.toDouble(), zoom.toDouble()), marker.position.longitude),
+                        zoom
+                )
+        mMap.animateCamera(cameraUpdate, 500, null)
+
+        marker.showInfoWindow()
+
+        return true
+    }
+
     override fun getInfoContents(marker: Marker): View? {
 
         return when (marker.tag) {
@@ -214,11 +232,7 @@ class PokemonMapView @Inject constructor(context: Context,
 
         if (pokemon.iv >= 80) {
 
-            val color = when(pokemon.iv) {
-                in 80..89 -> 0xFF006DF0.toInt()
-                in 90..99 -> 0xFF91DC5A.toInt()
-                else -> 0xFFD80027.toInt()
-            }
+            val color = ColorUtils.getPokemonColor(pokemon.iv)
 
             val bm = BitmapFactory.decodeResource(resources, resource)
             options.icon(BitmapDescriptorFactory.fromBitmap(CommonUtils.highlightImage(bm, color)))

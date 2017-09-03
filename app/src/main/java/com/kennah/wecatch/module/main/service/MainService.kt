@@ -26,7 +26,6 @@ class MainService : Service() {
         mFloatingView.addCloseCallback {
             stopSelf()
         }
-
     }
 
     override fun onDestroy() {

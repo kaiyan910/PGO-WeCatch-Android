@@ -47,6 +47,7 @@
             android:layout_below="@id/top"
             android:layout_margin="@dimen/spacing_8"
             android:text="@string/scan"
+            android:elevation="@dimen/spacing_4"
             android:padding="@dimen/spacing_8"
             android:textColor="@android:color/white"
             android:background="@color/colorPrimary" />

@@ -10,6 +10,7 @@ import butterknife.BindString
 import butterknife.BindView
 import com.kennah.wecatch.R
 import com.kennah.wecatch.core.base.BaseActivity
+import com.kennah.wecatch.core.utils.CommonUtils
 import com.kennah.wecatch.module.main.service.MainService
 import com.kennah.wecatch.module.main.ui.fragment.MainFragment
 import dagger.android.AndroidInjector
@@ -44,6 +45,10 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector, HasServiceInjec
 
     override fun afterViews() {
         super.afterViews()
+
+        if (CommonUtils.isServiceRunning(this, MainService::class.java)) {
+            stopService(Intent(this, MainService::class.java))
+        }
         MainActivityPermissionsDispatcher.showLocationWithCheck(this)
     }
 

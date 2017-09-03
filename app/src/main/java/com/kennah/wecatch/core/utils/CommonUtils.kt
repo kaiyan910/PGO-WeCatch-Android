@@ -1,5 +1,6 @@
 package com.kennah.wecatch.core.utils
 
+import android.app.ActivityManager
 import android.content.Context
 import android.graphics.*
 import android.net.ConnectivityManager
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.WindowManager
 import com.kennah.wecatch.core.exception.NetworkException
 import android.graphics.BlurMaskFilter.Blur
+import com.kennah.wecatch.module.main.service.MainService
 
 
 object CommonUtils {
@@ -87,5 +89,11 @@ object CommonUtils {
 
         // return out final image
         return bmOut
+    }
+
+    @SuppressWarnings("deprecation")
+    fun isServiceRunning(context: Context, serviceClass: Class<*>): Boolean {
+        val manager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        return manager.getRunningServices(Integer.MAX_VALUE).any { serviceClass.name == it.service.className }
     }
 }
