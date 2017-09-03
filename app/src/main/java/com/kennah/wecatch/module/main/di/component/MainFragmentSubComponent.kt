@@ -11,5 +11,5 @@ import dagger.android.AndroidInjector
 interface MainFragmentSubComponent: AndroidInjector<MainFragment> {
 
     @Subcomponent.Builder
-    abstract class Builder : AndroidInjector.Builder<MainFragment>()
+    abstract class Builder: AndroidInjector.Builder<MainFragment>()
 }

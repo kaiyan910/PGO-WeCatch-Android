@@ -1,35 +1,30 @@
 package com.kennah.wecatch
 
-import android.app.Activity
-import android.app.Application
-import android.support.multidex.MultiDexApplication
+import android.content.Context
+import android.support.multidex.MultiDex
 import com.kennah.wecatch.core.di.component.DaggerAppComponent
 import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasActivityInjector
-import javax.inject.Inject
+import dagger.android.support.DaggerApplication
 
-class App: MultiDexApplication(), HasActivityInjector {
-
-    @Inject
-    lateinit var mDispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
+class App: DaggerApplication() {
 
     init {
         instance = this
     }
 
     companion object {
-        lateinit var instance:App
+        lateinit var instance: App
     }
 
-    override fun onCreate() {
-        super.onCreate()
-        DaggerAppComponent.builder()
-                .application(this)
-                .server("https://www.wecatch.net")
-                .build()
-                .inject(this)
+
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(base)
+        MultiDex.install(this)
     }
 
-    override fun activityInjector(): AndroidInjector<Activity> = mDispatchingAndroidInjector
+
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> = DaggerAppComponent.builder()
+            .application(this)
+            .server("https://www.wecatch.net")
+            .build()
 }

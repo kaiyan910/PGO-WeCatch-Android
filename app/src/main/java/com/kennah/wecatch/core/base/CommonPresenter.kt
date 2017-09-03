@@ -10,13 +10,9 @@ import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 import java.lang.ref.WeakReference
 
-open class CommonPresenter<T : BaseView>(view: T) : BasePresenter<T> {
+open class CommonPresenter<T : BaseView> : BasePresenter<T> {
 
-    protected var mView: WeakReference<T>
-
-    init {
-        mView = WeakReference(view)
-    }
+    protected lateinit var mView: WeakReference<T>
 
     override fun attach(view: T) {
         mView = WeakReference(view)

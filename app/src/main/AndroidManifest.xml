@@ -2,13 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.kennah.wecatch">
 
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:name=".App"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
@@ -20,7 +21,13 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyC0ktWSa7BBtlQVyfXCsfd4MtNU5wV8C4U" />
 
-        <activity android:name="com.kennah.wecatch.module.main.ui.activity.MainActivity"
+        <service
+            android:name=".module.main.service.MainService"
+            android:enabled="true"
+            android:exported="false"/>
+
+        <activity
+            android:name="com.kennah.wecatch.module.main.ui.activity.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,7 +36,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".module.filter.ui.activity.FilterActivity"
+        <activity
+            android:name=".module.filter.ui.activity.FilterActivity"
             android:screenOrientation="portrait" />
 
     </application>

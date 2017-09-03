@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/bg_floating"
+    android:layout_height="match_parent">
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageView
+        android:id="@+id/loading"
+        android:src="@drawable/ic_pokeball"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"
+        android:layout_margin="@dimen/spacing_16"
+        android:layout_width="@dimen/loading_size"
+        android:layout_height="@dimen/loading_size" />
+
+</RelativeLayout>

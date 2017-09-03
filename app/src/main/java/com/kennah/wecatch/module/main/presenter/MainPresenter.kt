@@ -13,8 +13,8 @@ import kotlinx.coroutines.experimental.async
 import org.jetbrains.anko.coroutines.experimental.bg
 import javax.inject.Inject
 
-class MainPresenter @Inject constructor(val view: MainContract.View, private val service: DataService, private val filterManager: FilterManager) :
-        CommonPresenter<MainContract.View>(view), MainContract.Presenter {
+class MainPresenter @Inject constructor(private val service: DataService, private val filterManager: FilterManager) :
+        CommonPresenter<MainContract.View>(), MainContract.Presenter {
 
     override fun getPokemon(bound: LatLngBounds, zoom: Float) {
 

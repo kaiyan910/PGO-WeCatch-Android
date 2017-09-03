@@ -1,15 +1,21 @@
 package com.kennah.wecatch.module.main.di.module
 
+import android.app.Service
 import android.support.v4.app.Fragment
 import com.kennah.wecatch.module.main.di.component.MainFragmentSubComponent
+import com.kennah.wecatch.module.main.di.component.MainServiceSubComponent
+import com.kennah.wecatch.module.main.service.MainService
 import com.kennah.wecatch.module.main.ui.fragment.MainFragment
 import dagger.Binds
 import dagger.Module
 import dagger.android.AndroidInjector
+import dagger.android.ServiceKey
 import dagger.android.support.FragmentKey
 import dagger.multibindings.IntoMap
 
-@Module(subcomponents = arrayOf(MainFragmentSubComponent::class))
+@Module(subcomponents = arrayOf(
+        MainFragmentSubComponent::class
+))
 abstract class MainBuilderModule {
 
     @Binds

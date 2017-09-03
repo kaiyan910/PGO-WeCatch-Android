@@ -3,28 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/map"
+    <FrameLayout
+        android:id="@+id/map_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
-
-    <RelativeLayout
-        android:id="@+id/loading_wrapper"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:background="@drawable/bg_loading"
-        android:padding="@dimen/spacing_16"
-        android:visibility="gone">
-
-        <ImageView
-            android:id="@+id/loading"
-            android:layout_width="@dimen/loading_size"
-            android:layout_height="@dimen/loading_size"
-            android:src="@drawable/ic_pokeball" />
-
-    </RelativeLayout>
 
     <ImageView
         android:id="@+id/scan"
@@ -49,5 +31,18 @@
         android:elevation="@dimen/main_icon_elevation"
         android:scaleType="center"
         android:src="@drawable/ic_filter" />
+
+    <ImageView
+        android:id="@+id/floating"
+        android:layout_width="@dimen/main_icon_size"
+        android:layout_height="@dimen/main_icon_size"
+        android:layout_above="@id/filter"
+        android:layout_marginBottom="@dimen/spacing_16"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="@dimen/spacing_16"
+        android:background="@drawable/button"
+        android:elevation="@dimen/main_icon_elevation"
+        android:scaleType="center"
+        android:src="@drawable/ic_floating" />
 
 </RelativeLayout>

@@ -11,4 +11,6 @@
 
     <color name="iv">#e21b1b</color>
     <color name="iv_details">#8b8b8b</color>
+
+    <color name="bg_floating">#dfdfdf</color>
 </resources>

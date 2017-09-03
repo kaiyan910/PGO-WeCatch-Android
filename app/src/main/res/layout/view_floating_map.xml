@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:elevation="@dimen/spacing_16">
+
+    <RelativeLayout
+        android:id="@+id/wrapper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:id="@+id/top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark">
+
+            <ImageView
+                android:id="@+id/close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:padding="@dimen/spacing_8"
+                android:src="@drawable/ic_close" />
+
+            <ImageView
+                android:id="@+id/minimize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/spacing_8"
+                android:src="@drawable/ic_minimize" />
+
+        </RelativeLayout>
+
+        <FrameLayout
+            android:id="@+id/map_container"
+            android:layout_below="@id/top"
+            android:background="@color/bg_floating"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/scan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/top"
+            android:layout_margin="@dimen/spacing_8"
+            android:text="@string/scan"
+            android:padding="@dimen/spacing_8"
+            android:textColor="@android:color/white"
+            android:background="@color/colorPrimary" />
+
+        <RelativeLayout
+            android:id="@+id/resize_area"
+            android:layout_width="@dimen/floatingMap_resizeArea_size"
+            android:layout_height="@dimen/floatingMap_resizeArea_size"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true">
+
+            <ImageView
+                android:id="@+id/resize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_2"
+                android:src="@drawable/ic_resize"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/indicator"
+        android:layout_width="@dimen/floatingMap_indicator_size"
+        android:layout_height="@dimen/floatingMap_indicator_size"
+        android:src="@mipmap/ic_launcher" />
+
+</RelativeLayout>
