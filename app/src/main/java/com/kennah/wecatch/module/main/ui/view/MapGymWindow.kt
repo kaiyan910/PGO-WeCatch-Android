@@ -42,7 +42,12 @@ class MapGymWindow(context: Context) : LinearLayout(context) {
             mTextNoRaid.visibility = View.VISIBLE
         } else {
             mLayoutRaidWrapper.visibility = View.VISIBLE
-            val name = ResourceUtils.getStringResource(context, "pokemon_" + gym.raidPokemonId)
+
+            val name = if (gym.raidPokemonId != 0) {
+                ResourceUtils.getStringResource(context, "pokemon_" + gym.raidPokemonId)
+            } else {
+                "-"
+            }
             val timeLeft = TimeUtils.getTimeLeftWithHour(gym.raidEndMs, "-")
 
             mTextName.text = String.format("%s (%s)", name, timeLeft)

@@ -30,6 +30,8 @@ class MapPokemonWindow(context: Context) : LinearLayout(context) {
     lateinit var mLayoutPokemonDetails: RelativeLayout
     @BindView(R.id.iv)
     lateinit var mTextIv: TextView
+    @BindView(R.id.cp)
+    lateinit var mTextCp: TextView
     @BindView(R.id.iv_attack)
     lateinit var mTextIvAttack: TextView
     @BindView(R.id.iv_defense)
@@ -71,6 +73,7 @@ class MapPokemonWindow(context: Context) : LinearLayout(context) {
             mLayoutPokemonDetails.visibility = View.VISIBLE
             mTextIv.text = String.format(mStringIv, pokemon.iv)
             mTextIv.textColor = ColorUtils.getPokemonColor(pokemon.iv)
+            mTextCp.text = pokemon.cp.toString()
             mTextIvAttack.text = pokemon.attack.toString()
             mTextIvDefense.text = pokemon.defense.toString()
             mTextIvStamina.text = pokemon.stamina.toString()

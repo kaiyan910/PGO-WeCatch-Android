@@ -74,7 +74,7 @@ class FloatingMapView @Inject constructor(context: Context, private val pokemonM
         params.apply {
             gravity = Gravity.TOP or Gravity.START
             x = 0
-            y = 0
+            y = 250
         }
 
         mWindowManager.addView(this, params)

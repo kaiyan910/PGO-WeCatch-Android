@@ -12,7 +12,6 @@
     <ImageView
         android:id="@+id/loading"
         android:src="@drawable/ic_pokeball"
-        android:layout_alignParentBottom="true"
         android:visibility="gone"
         android:layout_margin="@dimen/spacing_16"
         android:layout_width="@dimen/loading_size"

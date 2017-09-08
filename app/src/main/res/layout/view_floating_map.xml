@@ -6,8 +6,8 @@
 
     <RelativeLayout
         android:id="@+id/wrapper"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:visibility="gone">
 
         <RelativeLayout
@@ -35,22 +35,23 @@
 
         <FrameLayout
             android:id="@+id/map_container"
-            android:layout_below="@id/top"
-            android:background="@color/bg_floating"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_below="@id/top"
+            android:background="@color/bg_floating" />
 
         <TextView
             android:id="@+id/scan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/top"
-            android:layout_margin="@dimen/spacing_8"
-            android:text="@string/scan"
-            android:elevation="@dimen/spacing_4"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="@dimen/spacing_8"
+            android:elevation="@dimen/spacing_8"
+            android:layout_marginBottom="@dimen/spacing_8"
+            android:background="@color/colorPrimary"
             android:padding="@dimen/spacing_8"
-            android:textColor="@android:color/white"
-            android:background="@color/colorPrimary" />
+            android:text="@string/scan"
+            android:textColor="@android:color/white" />
 
         <RelativeLayout
             android:id="@+id/resize_area"
@@ -63,10 +64,10 @@
                 android:id="@+id/resize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/spacing_2"
-                android:src="@drawable/ic_resize"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:layout_margin="@dimen/spacing_2"
+                android:src="@drawable/ic_resize" />
         </RelativeLayout>
 
     </RelativeLayout>

@@ -43,7 +43,8 @@ class GymMarker(context: Context): RelativeLayout(context) {
 
             mImageFocus.visibility = View.VISIBLE
             mImageTeam.setImageResource(ResourceUtils.getDrawableResource(context, raidImage))
-            mImageRaidBoss.setImageResource(ResourceUtils.getDrawableResource(context, "pkm_${gym.raidPokemonId}"))
+            if (gym.raidPokemonId != 0)
+                mImageRaidBoss.setImageResource(ResourceUtils.getDrawableResource(context, "pkm_${gym.raidPokemonId}"))
         } else {
             mImageTeam.setImageResource(ResourceUtils.getDrawableResource(context, "ic_gym_${gym.team}"))
         }
