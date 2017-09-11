@@ -48,7 +48,7 @@ class MapGymWindow(context: Context) : LinearLayout(context) {
             } else {
                 "-"
             }
-            val timeLeft = TimeUtils.getTimeLeftWithHour(gym.raidEndMs, "-")
+            val timeLeft = TimeUtils.getTimeLeftWithHour(gym.raidEndMs ?: 0, "-")
 
             mTextName.text = String.format("%s (%s)", name, timeLeft)
             mTextStartTime.text = SimpleDateFormat("hh:mm:ss a", Locale.getDefault()).format(gym.raidBattleMs)

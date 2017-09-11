@@ -30,14 +30,16 @@ class GymMarker(context: Context): RelativeLayout(context) {
 
     fun bind(gym: Gym) {
 
-        if (gym.raidLevel != 0 && !TimeUtils.isExpired(gym.raidEndMs)) {
-            val raidImage = when (gym.raidLevel) {
+        val raidLevel = gym.raidLevel ?: 0
+
+        if (raidLevel != 0 && !TimeUtils.isExpired(gym.raidEndMs ?: 0)) {
+            val raidImage = when (raidLevel) {
                 in 1..2 -> "ic_raid_normal"
                 in 3..4 -> "ic_raid_rare"
                 else -> "ic_raid_legendary"
             }
 
-            if (gym.raidLevel >= 4) {
+            if (raidLevel >= 4) {
                 mImageFocus.setImageResource(R.drawable.ic_focus_rare)
             }
 
@@ -49,6 +51,6 @@ class GymMarker(context: Context): RelativeLayout(context) {
             mImageTeam.setImageResource(ResourceUtils.getDrawableResource(context, "ic_gym_${gym.team}"))
         }
 
-        mTextNumber.text = gym.details.size.toString()
+        mTextNumber.text = gym.details?.size.toString()
     }
 }

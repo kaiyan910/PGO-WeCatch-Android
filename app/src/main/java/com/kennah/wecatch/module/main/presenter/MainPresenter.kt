@@ -53,12 +53,17 @@ class MainPresenter @Inject constructor(private val service: DataService, privat
 
                 val gymList = weCatch.gyms
                         .filter {
+
+                            val raidLevel = it.raidLevel ?: 0
+                            val raidPokemonId = it.raidPokemonId ?: 0
+                            val location = it.location ?: arrayOf(0.0, 0.0)
+
                             if (rare) {
-                                !filterManager.inGymFilter(it.raidLevel) && !filterManager.inPokemonFilter(it.raidPokemonId)
+                                !filterManager.inGymFilter(raidLevel) && !filterManager.inPokemonFilter(raidPokemonId)
                             } else {
-                                bound.contains(LatLng(it.location[1], it.location[0])) &&
-                                        !filterManager.inGymFilter(it.raidLevel) &&
-                                        !filterManager.inPokemonFilter(it.raidPokemonId)
+                                bound.contains(LatLng(location[1], location[0])) &&
+                                        !filterManager.inGymFilter(raidLevel) &&
+                                        !filterManager.inPokemonFilter(raidPokemonId)
                             }
                         }
 

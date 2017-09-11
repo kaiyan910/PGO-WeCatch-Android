@@ -170,7 +170,9 @@ class PokemonMapView @Inject constructor(context: Context,
                     val gymMarker = GymMarker(context)
                     gymMarker.bind(gym)
 
-                    val options = MarkerOptions().position(LatLng(gym.location[1], gym.location[0]))
+                    val location = gym.location ?: arrayOf(0.0, 0.0)
+
+                    val options = MarkerOptions().position(LatLng(location[1], location[0]))
                     options.icon(BitmapDescriptorFactory.fromBitmap(CommonUtils.getBitmapFromView(gymMarker)))
 
                     val marker: Marker = mMap.addMarker(options)
