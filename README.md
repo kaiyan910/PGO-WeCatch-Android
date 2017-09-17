@@ -11,27 +11,26 @@ In order to protect the website, the security part is not included in this proje
 - Support background searching now, configs can be set in 'Settings'
 - Fix bug on 'Filter'
 
+```
+MIT License
 
-## v1.0.4.2
-- Fix bug on keep showing 503
+Copyright (c) [2017] [Kenny Lau]
 
-## v1.0.4.1
-- Fix crash on clicking raid boss's egg
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-## v1.0.4
-- Add overlay map view, you can now search Pokemon from the floating windows, no more app switch!!!!
-- The window is draggable and resizable
-
-## v1.0.3
-- Support IV display
-
-## v1.0.2
-- Rare search also apply filter now
-- Add select all and de-select all in Filter
-
-## v1.0.1
-- Rare search under zoom level <= 13
-
-## v1.0.0
-- Support searching/filtering pokemon and Gym (Raid Battle)
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
