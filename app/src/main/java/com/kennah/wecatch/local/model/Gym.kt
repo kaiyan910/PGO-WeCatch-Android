@@ -17,5 +17,6 @@ class Gym(
         @JsonProperty("raid_pokemon_id") val raidPokemonId: Int?,
         @JsonProperty("team") val team: Int?,
         @JsonProperty("location") val location: Array<Double>?,
-        @JsonProperty("last_modified") val lastModified: Array<Long>?
+        @JsonProperty("last_modified") val lastModified: Array<Long>?,
+        @JsonProperty("sponsor") val sponsor: Int?
 )

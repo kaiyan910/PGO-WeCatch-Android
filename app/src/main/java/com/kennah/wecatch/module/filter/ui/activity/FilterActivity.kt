@@ -2,23 +2,18 @@ package com.kennah.wecatch.module.filter.ui.activity
 
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.Toolbar
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import butterknife.BindView
 import com.kennah.wecatch.R
 import com.kennah.wecatch.core.base.BaseActivity
-import com.kennah.wecatch.core.base.BaseHolder
-import com.kennah.wecatch.core.utils.LogUtils
+import com.kennah.wecatch.local.Constant
 import com.kennah.wecatch.local.FilterManager
+import com.kennah.wecatch.local.filter.FilterHandlerFactory
 import com.kennah.wecatch.module.filter.ui.adapter.FilterPagerAdapter
 import com.kennah.wecatch.module.filter.ui.event.SelectChangeEvent
-import com.kennah.wecatch.module.filter.ui.fragment.FilterFragment
-import com.kennah.wecatch.module.filter.ui.fragment.FilterGymFragment
-import com.kennah.wecatch.module.filter.ui.fragment.FilterPokemonFragment
 import com.squareup.otto.Bus
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -43,21 +38,33 @@ class FilterActivity: BaseActivity(), HasSupportFragmentInjector {
     @Inject
     lateinit var mOttoBus: Bus
 
-    private val mFragmentList: ArrayList<Fragment> = arrayListOf()
+    private val mNeedGym: Boolean by lazy {
+        intent.getBooleanExtra(EXTRA_GYM, true)
+    }
+
+    private val mFilterType: Int by lazy {
+        intent.getIntExtra(EXTRA_FILTER_TYPE, FilterHandlerFactory.NORMAL)
+    }
+
+    companion object {
+        val EXTRA_GYM = "GYM"
+        val EXTRA_FILTER_TYPE = "FILTER_TYPE"
+    }
 
     override fun afterViews() {
         super.afterViews()
 
         setupBackNavigation()
 
-        mFragmentList.add(FilterGymFragment())
-        mFragmentList.add(FilterPokemonFragment())
-
-        mPagerAdapter.setFragmentList(mFragmentList)
+        mPagerAdapter.setup(mNeedGym, mFilterType)
 
         mViewPager.apply {
             adapter = mPagerAdapter
-            offscreenPageLimit = 2
+            offscreenPageLimit = if (mNeedGym) {
+                Constant.POKEMON_GENERATION + 1
+            } else {
+                Constant.POKEMON_GENERATION
+            }
         }
 
         mTabLayout.setupWithViewPager(mViewPager)
@@ -65,6 +72,7 @@ class FilterActivity: BaseActivity(), HasSupportFragmentInjector {
 
     override fun onNavigationPressed() {
         mFilterManager.save()
+        setResult(RESULT_OK)
         super.onNavigationPressed()
     }
 

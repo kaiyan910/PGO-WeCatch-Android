@@ -6,6 +6,8 @@ import com.kennah.wecatch.local.API
 import com.kennah.wecatch.local.model.WeCatch
 import com.kennah.wecatch.local.utils.MathUtils
 import com.kennah.wecatch.local.utils.WeCatchUtils
+import retrofit2.Call
+import retrofit2.Response
 import javax.inject.Inject
 
 class WeCatchService @Inject constructor (private val context: Context, private val api:API): DataService {
@@ -34,7 +36,7 @@ class WeCatchService @Inject constructor (private val context: Context, private 
         }
     }
 
-    override fun getPokemonList(ne: Array<Double>, sw: Array<Double>): WeCatch {
+    override fun getPokemonList(ne: Array<Double>, sw: Array<Double>, gym: Boolean): WeCatch {
 
         val centerLatitude = java.lang.Double.parseDouble(MathUtils.toDecimal5((ne[0] + sw[0]) / 2))
         val centerLongitude = java.lang.Double.parseDouble(MathUtils.toDecimal5((ne[1] + sw[1]) / 2))
@@ -50,9 +52,14 @@ class WeCatchService @Inject constructor (private val context: Context, private 
             val neLat = MathUtils.toDecimal6(ne[0])
             val neLng = MathUtils.toDecimal6(ne[1])
 
-            api.getPokemonList(token, swLat, swLng, neLat, neLng).execute()
+            if (gym) {
+                api.getPokemonList(token, swLat, swLng, neLat, neLng).execute()
+            } else {
+                api.getPokemonLWithoutGym(token, swLat, swLng, neLat, neLng).execute()
+            }
         }
     }
+
 
     private fun getRareCenter(ne: Array<Double>, sw: Array<Double>): Array<Double> {
 

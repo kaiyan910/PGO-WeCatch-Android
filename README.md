@@ -4,7 +4,13 @@ A non-offical Android client for WeCatch.net written in Kotlin.
 
 In order to protect the website, the security part is not included in this project.
 
-<img src="https://raw.githubusercontent.com/kaiyan910/PGO-WeCatch-Android/master/screenshot_1.png" width="300"> <img src="https://raw.githubusercontent.com/kaiyan910/PGO-WeCatch-Android/master/screenshot_2.png" width="300"> <img src="https://raw.githubusercontent.com/kaiyan910/PGO-WeCatch-Android/master/screenshot_3.png" width="300">
+<img src="https://raw.githubusercontent.com/kaiyan910/PGO-WeCatch-Android/master/screenshot_1.png" width="200"> <img src="https://raw.githubusercontent.com/kaiyan910/PGO-WeCatch-Android/master/screenshot_2.png" width="200"> <img src="https://raw.githubusercontent.com/kaiyan910/PGO-WeCatch-Android/master/screenshot_3.png" width="200"> <img src="https://raw.githubusercontent.com/kaiyan910/PGO-WeCatch-Android/master/screenshot_4.png" width="200">
+
+## v1.1.0
+- New layout for the main activity
+- Support background searching now, configs can be set in 'Settings'
+- Fix bug on 'Filter'
+
 
 ## v1.0.4.2
 - Fix bug on keep showing 503

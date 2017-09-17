@@ -1,18 +1,23 @@
 <resources>
-    <string name="app_name">WeCatch</string>
+    <string name="app_name" translatable="false">WeCatch</string>
 
     <string name="permission_location_title">Permission</string>
     <string name="permission_location_message">Location permission is required to get your current location.</string>
+    <string name="permission_location_positive">OK</string>
+    <string name="permission_location_negative">Cancel</string>
 
     <string name="permission_not_granted">Permission not grant.</string>
+    <string name="permission_not_granted_location">Location permission not grant.</string>
 
     <string name="scan">SCAN</string>
 
+    <string name="settings_title">Settings</string>
     <string name="filter_title">Filter</string>
 
     <string-array name="filter_tab">
         <item>RAID</item>
-        <item>POKEMON</item>
+        <item>GEN. 1</item>
+        <item>GEN. 2</item>
     </string-array>
 
     <string name="filter_gym">GYM</string>
@@ -20,7 +25,33 @@
 
     <string name="gymWindow_no_raid">No raid battle yet.</string>
 
-    <string name="pokemonWindow_iv">%d%%</string>
-    <string name="pokemonWindow_iv_details">(%1$d/%2$d/%3$d)</string>
+    <string name="pokemonWindow_iv" translatable="false">%d%%</string>
+    <string name="pokemonWindow_iv_details" translatable="false">(%1$d/%2$d/%3$d)</string>
+
+    <string name="notification_title">%d Pokemons Found. (%s)</string>
+    <string name="notification_foreground_message">We are search Pokemons for you&#8230;</string>
+    <string name="notification_foreground_map_message">Overlay map is activated&#8230;</string>
+    <string name="notification_foreground_stop">STOP</string>
+
+    <string name="settings_notification">Background Scan</string>
+    <string name="settings_application">Application</string>
+
+    <string name="settings_filter_title">Pokemon List</string>
+    <string name="settings_filter_summary">%d Pokemons are in the search list.</string>
+
+    <string name="settings_notifyRange_title">Scan Range</string>
+    <string name="settings_notifyRange_dialog">Range (km)</string>
+
+    <string name="settings_notifyInterval_title">Scan Interval</string>
+    <string name="settings_notifyInterval_dialog">Interval (minute)</string>
+
+    <string name="settings_current_title">Current Version</string>
+    <string name="settings_current_summary" translatable="false">v1.1.0</string>
+
+    <string name="settings_download_title">Download Latest Version</string>
+    <string name="settings_download_summary" translatable="false">https://github.com/kaiyan910/PGO-WeCatch-Android/releases</string>
+
+    <string name="settings_unit_km">%d km</string>
+    <string name="settings_unit_minute">%d minute</string>
 
 </resources>

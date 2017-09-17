@@ -8,8 +8,8 @@ import dagger.android.AndroidInjector
 
 @MainScope
 @Subcomponent(modules = arrayOf(MainBuilderModule::class))
-interface MainSubComponent: AndroidInjector<MainActivity> {
+interface MainSubComponent : AndroidInjector<MainActivity> {
 
     @Subcomponent.Builder
-    abstract class Builder: AndroidInjector.Builder<MainActivity>()
+    abstract class Builder : AndroidInjector.Builder<MainActivity>()
 }

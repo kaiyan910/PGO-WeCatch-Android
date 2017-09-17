@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <TextView
+        android:id="@+id/category_notification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/spacing_16"
+        android:text="@string/settings_notification"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/range_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/category_notification"
+        android:background="@drawable/bg_divider"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_16">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_notifyRange_title"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/fontSize_14" />
+
+        <TextView
+            android:id="@+id/range_summary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2 km"
+            android:textColor="@color/text"
+            android:textSize="@dimen/fontSize_12" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/interval_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/range_container"
+        android:background="@drawable/bg_divider"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_16">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_notifyInterval_title"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/fontSize_14" />
+
+        <TextView
+            android:id="@+id/interval_summary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1 minute"
+            android:textColor="@color/text"
+            android:textSize="@dimen/fontSize_12" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/filter_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/interval_container"
+        android:background="@drawable/bg_divider"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_16">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_filter_title"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/fontSize_14" />
+
+        <TextView
+            android:id="@+id/filter_summary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_filter_summary"
+            android:textColor="@color/text"
+            android:textSize="@dimen/fontSize_12" />
+
+    </LinearLayout>
+
+</RelativeLayout>

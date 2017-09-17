@@ -1,8 +1,11 @@
 package com.kennah.wecatch.module.main.di.module
 
+import android.app.Application
 import android.content.Context
+import com.kennah.wecatch.core.di.AppScope
 import com.kennah.wecatch.core.helper.LocationHelper
 import com.kennah.wecatch.local.FilterManager
+import com.kennah.wecatch.local.Prefs
 import com.kennah.wecatch.local.model.Pokemon
 import com.kennah.wecatch.local.service.DataService
 import com.kennah.wecatch.module.main.contract.MainContract
@@ -18,8 +21,12 @@ class MainFragmentModule {
 
     @Provides
     @MainFragmentScope
-    fun provideMainPresenter(service: DataService, filterManager: FilterManager): MainContract.Presenter {
-        return MainPresenter(service,filterManager)
+    fun provideLocationHelper(app: Application): LocationHelper = LocationHelper(app)
+
+    @Provides
+    @MainFragmentScope
+    fun provideMainPresenter(service: DataService, filterManager: FilterManager, pref: Prefs): MainContract.Presenter {
+        return MainPresenter(service,filterManager, pref)
     }
 
     @Provides

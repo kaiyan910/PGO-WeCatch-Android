@@ -4,6 +4,7 @@ import android.content.Context
 import com.kennah.wecatch.App
 import com.kennah.wecatch.core.helper.LocationHelper
 import com.kennah.wecatch.local.FilterManager
+import com.kennah.wecatch.local.Prefs
 import com.kennah.wecatch.local.service.DataService
 import com.kennah.wecatch.module.main.contract.MainContract
 import com.kennah.wecatch.module.main.di.MainFragmentScope
@@ -19,8 +20,8 @@ class MainServiceModule {
 
     @Provides
     @MainServiceScope
-    fun provideMainPresenter(service: DataService, filterManager: FilterManager): MainContract.Presenter {
-        return MainPresenter(service, filterManager)
+    fun provideMainPresenter(service: DataService, filterManager: FilterManager, prefs: Prefs): MainContract.Presenter {
+        return MainPresenter(service, filterManager, prefs)
     }
 
     @Provides

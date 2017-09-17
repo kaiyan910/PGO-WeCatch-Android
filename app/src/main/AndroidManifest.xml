@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.kennah.wecatch">
 
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
@@ -26,6 +27,15 @@
             android:enabled="true"
             android:exported="false"/>
 
+        <service android:name=".module.main.service.NotificationService"  />
+
+        <receiver android:name=".module.main.service.NotificationReceiver">
+            <intent-filter>
+                <action android:name="wecatch_android.notification.stop" />
+                <action android:name="wecatch_android.notification.stop.map" />
+            </intent-filter>
+        </receiver>
+
         <activity
             android:name="com.kennah.wecatch.module.main.ui.activity.MainActivity"
             android:screenOrientation="portrait">
@@ -38,6 +48,9 @@
 
         <activity
             android:name=".module.filter.ui.activity.FilterActivity"
+            android:screenOrientation="portrait" />
+
+        <activity android:name=".module.settings.ui.activity.SettingsActivity"
             android:screenOrientation="portrait" />
 
     </application>

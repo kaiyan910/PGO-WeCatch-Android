@@ -16,6 +16,15 @@ interface API {
                        @Query("y") neLat: String,
                        @Query("z") neLng: String): Call<WeCatch>
 
+
+    @GET("/md?pokemon=true&gyms=false&rares=false")
+    @Headers("X-Requested-With: XMLHttpRequest", "Referer: https://www.wecatch.net/")
+    fun getPokemonLWithoutGym(@Query("f") token: String,
+                       @Query("w") swLat: String,
+                       @Query("x") swLng: String,
+                       @Query("y") neLat: String,
+                       @Query("z") neLng: String): Call<WeCatch>
+
     @GET("/md?pokemon=true&gyms=true&rares=true")
     @Headers("X-Requested-With: XMLHttpRequest", "Referer: https://www.wecatch.net/")
     fun getRareList(@Query("f") token: String,

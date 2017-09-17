@@ -3,7 +3,9 @@ package com.kennah.wecatch.module.main.presenter
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.kennah.wecatch.core.base.CommonPresenter
+import com.kennah.wecatch.local.Constant
 import com.kennah.wecatch.local.FilterManager
+import com.kennah.wecatch.local.Prefs
 import com.kennah.wecatch.local.model.ProcessedData
 import com.kennah.wecatch.local.service.DataService
 import com.kennah.wecatch.local.utils.WeCatchUtils
@@ -13,8 +15,10 @@ import kotlinx.coroutines.experimental.async
 import org.jetbrains.anko.coroutines.experimental.bg
 import javax.inject.Inject
 
-class MainPresenter @Inject constructor(private val service: DataService, private val filterManager: FilterManager) :
-        CommonPresenter<MainContract.View>(), MainContract.Presenter {
+class MainPresenter @Inject constructor(
+        private val service: DataService,
+        private val filterManager: FilterManager,
+        private val prefs: Prefs) : CommonPresenter<MainContract.View>(), MainContract.Presenter {
 
     override fun getPokemon(bound: LatLngBounds, zoom: Float) {
 
@@ -32,7 +36,7 @@ class MainPresenter @Inject constructor(private val service: DataService, privat
                 if (rare) {
                     service.getRarePokemonList()
                 } else {
-                    service.getPokemonList(ne, sw)
+                    service.getPokemonList(ne, sw, true)
                 }
             }
 
@@ -73,6 +77,40 @@ class MainPresenter @Inject constructor(private val service: DataService, privat
             val (pokemonList, gymList) = processedData.await()
 
             mView.get()?.onPokemonFound(pokemonList, gymList)
+
+        }.invokeOnCompletion { e -> handleError(e) }
+    }
+
+    override fun getPokemonWithoutGym(bound: LatLngBounds, zoom: Float, alertList: MutableList<String>) {
+
+        val ne: Array<Double> = arrayOf(bound.northeast.latitude, bound.northeast.longitude)
+        val sw: Array<Double> = arrayOf(bound.southwest.latitude, bound.southwest.longitude)
+
+        async(UI) {
+
+
+            val response = bg {
+                service.getPokemonList(ne, sw, false)
+            }
+
+            val weCatch = response.await()
+
+            val processedData = bg {
+
+                val pokemonUnwanted = prefs.getPokemonNotifyFilter().split(",")
+
+                weCatch.pokemons
+                        .map { WeCatchUtils.decode(it) }
+                        .filter {
+                            bound.contains(LatLng(it.latitude, it.longitude)) &&
+                                    !pokemonUnwanted.contains(it.pokemonId.toString()) &&
+                                    !alertList.contains("${it.pokemonId}|${it.latitude}|${it.longitude}")
+                        }
+            }
+
+            val pokemonList = processedData.await()
+
+            mView.get()?.onPokemonFound(pokemonList, emptyList())
 
         }.invokeOnCompletion { e -> handleError(e) }
     }

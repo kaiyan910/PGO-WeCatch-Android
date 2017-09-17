@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.BitmapFactory
+import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
@@ -32,6 +33,7 @@ import com.kennah.wecatch.core.utils.TimeUtils
 import com.kennah.wecatch.core.withDelay
 import com.kennah.wecatch.local.model.Gym
 import com.kennah.wecatch.local.model.Pokemon
+import com.kennah.wecatch.local.utils.AnimateUtils
 import com.kennah.wecatch.local.utils.ColorUtils
 import com.kennah.wecatch.module.main.contract.MainContract
 import io.reactivex.Flowable
@@ -40,6 +42,7 @@ import io.reactivex.schedulers.Schedulers
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 @SuppressLint("ViewConstructor")
 class PokemonMapView @Inject constructor(context: Context,
@@ -61,10 +64,15 @@ class PokemonMapView @Inject constructor(context: Context,
     private lateinit var mMap: GoogleMap
 
     private var mPokemonMarkerList: MutableList<Marker> = mutableListOf()
+    private var mCacheFromIntent: ArrayList<Pokemon> = ArrayList()
     private var mExpireCheckFlag = true
     private var mScanning = false
 
     private var mLastKnownLocation: LatLng? = null
+
+    var onStatusChangeListener: ((loading: Boolean) -> Unit)? = null
+    var showLoadingIcon: Boolean = true
+
 
     init {
 
@@ -99,14 +107,21 @@ class PokemonMapView @Inject constructor(context: Context,
 
         if (mScanning) return
 
-        showLoading()
+        onStatusChangeListener?.invoke(true)
+        if (showLoadingIcon) showLoading()
         mExpireCheckFlag = false
         presenter.getPokemon(mMap.projection.visibleRegion.latLngBounds, mMap.cameraPosition.zoom)
         mScanning = true
     }
 
+    fun cache(pokemonList: ArrayList<Pokemon>) {
+        mCacheFromIntent.addAll(pokemonList)
+    }
+
     override fun onError(errorCode: Int) {
-        hideLoading()
+
+        onStatusChangeListener?.invoke(false)
+        if (showLoadingIcon) hideLoading()
         mScanning = false
         Toast.makeText(context.applicationContext, errorCode.toString(), Toast.LENGTH_SHORT).show()
     }
@@ -135,11 +150,17 @@ class PokemonMapView @Inject constructor(context: Context,
                 isMyLocationEnabled = true
             }
         }
+
+        if (mCacheFromIntent.size > 0) {
+            onPokemonFound(mCacheFromIntent, emptyList())
+        }
     }
 
     override fun onPokemonFound(pokemonList: List<Pokemon>, gymList: List<Gym>) {
 
         mMap.clear()
+
+        LogUtils.debug(this, "${pokemonList.size} on pokemonList")
 
         Flowable.fromIterable(pokemonList)
                 .subscribeOn(Schedulers.computation())
@@ -150,13 +171,16 @@ class PokemonMapView @Inject constructor(context: Context,
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ pokemon ->
                     createPokemonMarker(pokemon)
-                }, { _ ->
-                    LogUtils.debug(this, "ERROR")
+                }, { e->
+                    Log.e("CREATE MARKER", "ERROR", e)
                 }, {
                     mScanning = false
                     mExpireCheckFlag = true
                     expireCheck()
-                    hideLoading()
+
+                    onStatusChangeListener?.invoke(false)
+                    if (showLoadingIcon) hideLoading()
+                    if (mCacheFromIntent.size > 0) mCacheFromIntent.clear()
                 })
 
         Flowable.fromIterable(gymList)
@@ -277,11 +301,8 @@ class PokemonMapView @Inject constructor(context: Context,
     private fun showLoading() {
 
         mImageLoading.visibility = View.VISIBLE
-        val anim = RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f)
-        anim.interpolator = LinearInterpolator()
-        anim.repeatCount = Animation.INFINITE
-        anim.duration = 700
 
-        mImageLoading.startAnimation(anim)
+
+        mImageLoading.startAnimation(AnimateUtils.rotateAnimate())
     }
 }

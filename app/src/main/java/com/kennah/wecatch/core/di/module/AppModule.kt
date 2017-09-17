@@ -8,6 +8,9 @@ import com.kennah.wecatch.App
 import com.kennah.wecatch.core.di.AppScope
 import com.kennah.wecatch.core.helper.LocationHelper
 import com.kennah.wecatch.local.FilterManager
+import com.kennah.wecatch.local.Prefs
+import com.kennah.wecatch.local.filter.FilterHandler
+import com.kennah.wecatch.local.filter.FilterHandlerFactory
 import com.kennah.wecatch.module.filter.di.FilterScope
 import com.squareup.otto.Bus
 import dagger.Module
@@ -22,15 +25,19 @@ class AppModule {
 
     @Provides
     @AppScope
-    fun provideLocationHelper(app: Application): LocationHelper = LocationHelper(app)
+    fun providePreference(app: Application): SharedPreferences = PreferenceManager.getDefaultSharedPreferences(app)
 
     @Provides
     @AppScope
-    fun providePreference(app: Application): SharedPreferences = app.getSharedPreferences(app.packageName, 0)
+    fun providePrefs(sharedPreferences: SharedPreferences): Prefs = Prefs(sharedPreferences)
 
     @Provides
     @AppScope
-    fun provideFilterManager(preference: SharedPreferences): FilterManager = FilterManager(preference)
+    fun provideFilterManager(preference: Prefs): FilterManager = FilterManager(preference)
+
+    @Provides
+    @AppScope
+    fun provideFilterHandlerFactory(manager: FilterManager) = FilterHandlerFactory(manager)
 
     @Provides
     @AppScope

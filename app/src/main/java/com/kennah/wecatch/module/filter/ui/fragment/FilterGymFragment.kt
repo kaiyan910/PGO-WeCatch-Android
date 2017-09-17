@@ -22,27 +22,13 @@ class FilterGymFragment: FilterFragment<Int, FilterGymListHolder>() {
     lateinit var mItemDecoration: RecyclerView.ItemDecoration
     @Inject
     lateinit var mFilterManager: FilterManager
-    @Inject
-    lateinit var mOttoBus: Bus
 
     private var mSelectAllFlag = false
 
     override fun afterViews(savedInstanceState: Bundle?) {
         super.afterViews(savedInstanceState)
         mRecyclerView.addItemDecoration(mItemDecoration)
-
-        val data = listOf(0, 1, 2, 3, 4, 5)
-        setData(data)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        mOttoBus.register(this)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        mOttoBus.unregister(this)
+        setData(listOf(mData).flatten())
     }
 
     override fun enableRefresh(): Boolean = false
@@ -55,15 +41,16 @@ class FilterGymFragment: FilterFragment<Int, FilterGymListHolder>() {
 
     @Subscribe
     fun onSelectChanged(event: SelectChangeEvent) {
-
-        LogUtils.debug(this, "event=[%d]", event.position)
-        LogUtils.debug(this, "mSelectAllFlag start=[%s]", mSelectAllFlag)
         when {
-            event.position == 0 && mSelectAllFlag -> mFilterManager.removeAllGymFilter()
-            event.position == 0 && !mSelectAllFlag -> mFilterManager.addAllGymFilter()
+            event.position == mFragmentPosition && mSelectAllFlag -> {
+                mFilterManager.removeAllGymFilter()
+                mSelectAllFlag = !mSelectAllFlag
+            }
+            event.position == mFragmentPosition && !mSelectAllFlag -> {
+                mFilterManager.addAllGymFilter()
+                mSelectAllFlag = !mSelectAllFlag
+            }
         }
-        mSelectAllFlag = !mSelectAllFlag
-        LogUtils.debug(this, "mSelectAllFlag end=[%s]", mSelectAllFlag)
         mListAdapter.notifyDataSetChanged()
     }
 }

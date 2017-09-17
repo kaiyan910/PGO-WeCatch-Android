@@ -15,5 +15,4 @@ class FilterPokemonFragmentModule {
     fun provideFilterPokemonGridAdapter(fragment: FilterPokemonFragment, filterManager: FilterManager): FilterPokemonGridAdapter {
         return FilterPokemonGridAdapter(fragment.activity, filterManager)
     }
-
 }

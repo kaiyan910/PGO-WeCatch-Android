@@ -7,6 +7,8 @@ import com.kennah.wecatch.core.base.BaseAdapter
 import com.kennah.wecatch.core.base.ListFragment
 import com.kennah.wecatch.core.utils.LogUtils
 import com.kennah.wecatch.local.FilterManager
+import com.kennah.wecatch.local.filter.FilterHandler
+import com.kennah.wecatch.local.filter.FilterHandlerFactory
 import com.kennah.wecatch.module.filter.ui.adapter.FilterPokemonGridAdapter
 import com.kennah.wecatch.module.filter.ui.event.SelectChangeEvent
 import com.kennah.wecatch.module.filter.ui.holder.FilterPokemonGridHolder
@@ -21,25 +23,19 @@ class FilterPokemonFragment : FilterFragment<Int, FilterPokemonGridHolder>() {
     @Inject
     lateinit var mFilterManager: FilterManager
     @Inject
-    lateinit var mOttoBus: Bus
+    lateinit var mFilterHandlerFactory: FilterHandlerFactory
 
+    private lateinit var mFilterHandler: FilterHandler
     private var mSelectAllFlag = false
+
+    var mGeneration = 0
 
     override fun afterViews(savedInstanceState: Bundle?) {
         super.afterViews(savedInstanceState)
 
-        val data = listOf(1..251).flatten()
-        setData(data)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        mOttoBus.register(this)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        mOttoBus.unregister(this)
+        mFilterHandler = mFilterHandlerFactory.create(mFilterType)
+        mGridAdapter.setFilterHandler(mFilterHandler)
+        setData(listOf(mData).flatten())
     }
 
     override fun enableRefresh(): Boolean = false
@@ -54,12 +50,16 @@ class FilterPokemonFragment : FilterFragment<Int, FilterPokemonGridHolder>() {
 
     @Subscribe
     fun onSelectChanged(event: SelectChangeEvent) {
-        LogUtils.debug(this, "event=[%d]", event.position)
         when {
-            event.position == 1 && mSelectAllFlag -> mFilterManager.removeAllPokemonFilter()
-            event.position == 1 && !mSelectAllFlag -> mFilterManager.addAllPokemonFilter()
+            event.position == mFragmentPosition && mSelectAllFlag -> {
+                mFilterHandler.removeAll(mGeneration)
+                mSelectAllFlag = !mSelectAllFlag
+            }
+            event.position == mFragmentPosition && !mSelectAllFlag -> {
+                mFilterHandler.addAll(mGeneration)
+                mSelectAllFlag = !mSelectAllFlag
+            }
         }
-        mSelectAllFlag = !mSelectAllFlag
         mGridAdapter.notifyDataSetChanged()
     }
 }

@@ -17,6 +17,8 @@
 
     <dimen name="filter_indicator_height">2dp</dimen>
     <dimen name="filter_holder_icon_size">36dp</dimen>
+    <dimen name="filter_holder_number_size">48dp</dimen>
+    <dimen name="filter_holder_number_font">40sp</dimen>
 
     <dimen name="main_icon_size">56dp</dimen>
     <dimen name="main_icon_elevation">2dp</dimen>
@@ -32,4 +34,8 @@
 
     <dimen name="floatingMap_resizeArea_size">36dp</dimen>
     <dimen name="floatingMap_indicator_size">48dp</dimen>
+
+    <dimen name="dialog_fix_margin">48dp</dimen>
+    <dimen name="dialog_fix_padding">18dp</dimen>
+
 </resources>

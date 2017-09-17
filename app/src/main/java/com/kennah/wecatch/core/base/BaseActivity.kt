@@ -2,15 +2,11 @@ package com.kennah.wecatch.core.base
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.Nullable
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
-import butterknife.BindView
 import butterknife.ButterKnife
-import com.kennah.wecatch.R
 import com.kennah.wecatch.core.HttpCode
 import com.kennah.wecatch.core.utils.LocaleUtils
-import com.kennah.wecatch.core.base.BaseView
 import dagger.android.AndroidInjection
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.toast

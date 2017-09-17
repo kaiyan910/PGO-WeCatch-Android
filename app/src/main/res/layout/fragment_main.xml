@@ -1,48 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/bottom_navigation"
+        android:orientation="horizontal"
+        android:weightSum="5">
+
+        <TextView
+            android:id="@+id/notify"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="@dimen/spacing_4"
+            android:background="?attr/selectableItemBackground"
+            android:drawableTop="@drawable/ic_bell"
+            android:gravity="center"
+            android:padding="@dimen/spacing_8"
+            android:text="Notify"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/floating"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="@dimen/spacing_4"
+            android:background="?attr/selectableItemBackground"
+            android:drawableTop="@drawable/ic_windows"
+            android:gravity="center"
+            android:padding="@dimen/spacing_8"
+            android:text="Popup"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:textSize="11sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="@dimen/spacing_4"
+            android:gravity="center"
+            android:padding="@dimen/spacing_8"
+            android:textColor="@color/colorPrimary"
+            android:textSize="12sp" />
+
+
+        <TextView
+            android:id="@+id/filter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="@dimen/spacing_4"
+            android:drawableTop="@drawable/ic_filter"
+            android:gravity="center"
+            android:padding="@dimen/spacing_8"
+            android:background="?attr/selectableItemBackground"
+            android:text="Filter"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/settings"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="@dimen/spacing_4"
+            android:drawableTop="@drawable/ic_settings"
+            android:gravity="center"
+            android:padding="@dimen/spacing_8"
+            android:background="?attr/selectableItemBackground"
+            android:text="Settings"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:textSize="11sp" />
+
+
+    </LinearLayout>
+
 
     <FrameLayout
         android:id="@+id/map_container"
+        android:layout_above="@id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
+    
     <ImageView
         android:id="@+id/scan"
-        android:layout_width="@dimen/main_icon_size"
-        android:layout_height="@dimen/main_icon_size"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="@dimen/spacing_16"
-        android:background="@drawable/button"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
         android:layout_alignParentBottom="true"
-        android:elevation="@dimen/main_icon_elevation"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/spacing_8"
+        android:background="@drawable/circle_scan"
         android:scaleType="center"
-        android:src="@drawable/ic_search" />
+        android:src="@drawable/ic_pokeball_white" />
 
-    <ImageView
-        android:id="@+id/filter"
-        android:layout_width="@dimen/main_icon_size"
-        android:layout_height="@dimen/main_icon_size"
-        android:layout_above="@id/scan"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="@dimen/spacing_16"
-        android:background="@drawable/button"
-        android:elevation="@dimen/main_icon_elevation"
-        android:scaleType="center"
-        android:src="@drawable/ic_filter" />
-
-    <ImageView
-        android:id="@+id/floating"
-        android:layout_width="@dimen/main_icon_size"
-        android:layout_height="@dimen/main_icon_size"
-        android:layout_above="@id/filter"
-        android:layout_marginBottom="@dimen/spacing_16"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="@dimen/spacing_16"
-        android:background="@drawable/button"
-        android:elevation="@dimen/main_icon_elevation"
-        android:scaleType="center"
-        android:src="@drawable/ic_floating" />
 
 </RelativeLayout>

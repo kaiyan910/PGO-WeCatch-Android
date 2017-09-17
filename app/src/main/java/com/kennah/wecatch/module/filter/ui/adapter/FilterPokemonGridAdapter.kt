@@ -4,27 +4,39 @@ import android.content.Context
 import android.view.ViewGroup
 import com.kennah.wecatch.core.base.BaseAdapter
 import com.kennah.wecatch.core.base.Wrapper
+import com.kennah.wecatch.core.utils.LogUtils
 import com.kennah.wecatch.local.FilterManager
+import com.kennah.wecatch.local.filter.FilterHandler
 import com.kennah.wecatch.module.filter.ui.holder.FilterPokemonGridHolder
 
-class FilterPokemonGridAdapter(context: Context, val filter: FilterManager): BaseAdapter<Int, FilterPokemonGridHolder>(context) {
+class FilterPokemonGridAdapter(
+        context: Context,
+        val filter: FilterManager): BaseAdapter<Int, FilterPokemonGridHolder>(context) {
 
-    private var mOnItemClickListener: (Int, Boolean) -> Unit = { id: Int, choice: Boolean ->
-
+    private lateinit var mFilterHandler: FilterHandler
+    private val mListener: ((Int, Boolean) -> Unit) = { id, choice ->
         if (!choice) {
-            filter.addToPokemonFilter(id)
+
+            LogUtils.debug("DEBUG#FilterPokemonGridAdapter", "number=[$id]")
+            mFilterHandler.add(id)
         } else {
-            filter.removeFromPokemonFilter(id)
+            mFilterHandler.remove(id)
         }
     }
+
 
     override fun onCreateItemView(parent: ViewGroup, viewType: Int): FilterPokemonGridHolder = FilterPokemonGridHolder(context)
 
     override fun onBindViewHolder(holder: Wrapper<FilterPokemonGridHolder>?, position: Int) {
+
         holder?.view?.bind(
                 mData[position],
-                filter.inPokemonFilter(mData[position]),
-                mOnItemClickListener
+                mFilterHandler.isFiltered(mData[position]),
+                mListener
         )
+    }
+
+    fun setFilterHandler(handler: FilterHandler) {
+        mFilterHandler = handler
     }
 }

@@ -2,9 +2,14 @@
 <resources>
     <color name="colorPrimary">#468C8C</color>
     <color name="colorPrimaryDark">#1c8293</color>
-    <color name="colorAccent">#0c102d</color>
+    <color name="colorAccent">#004751</color>
 
-    <color name="divider">#bab0b0</color>
+    <color name="bottom_navigation_notify">#C73232</color>
+    <color name="text">#d6d6d6</color>
+    <color name="text_filter_holder">#e9e9e9</color>
+
+    <color name="divider">#e2e0e0</color>
+    <color name="bottom_navigation">#f7f7f7</color>
 
     <color name="row">#fafafa</color>
     <color name="row_pressed">#c2c2c2</color>

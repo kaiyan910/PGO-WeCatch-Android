@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.TextView
 import butterknife.BindView
 import com.kennah.wecatch.R
+import com.kennah.wecatch.core.utils.LogUtils
 
 abstract class ListFragment<T, V>: BaseFragment(),
         BaseListView<T>, 
@@ -29,6 +30,7 @@ abstract class ListFragment<T, V>: BaseFragment(),
         }
         mRefreshLayout.isEnabled = enableRefresh()
         mRefreshLayout.setOnRefreshListener(this)
+        LogUtils.debug(this, "afterViews()")
     }
 
     override fun layout(): Int = R.layout.fragment_list
@@ -75,6 +77,7 @@ abstract class ListFragment<T, V>: BaseFragment(),
 
         when {
             data.isNotEmpty() -> {
+                LogUtils.debug(this, "not empty data.")
                 getListAdapter().setData(data)
                 showData()
             }

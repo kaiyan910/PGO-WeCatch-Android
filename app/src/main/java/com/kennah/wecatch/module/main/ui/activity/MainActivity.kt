@@ -8,6 +8,8 @@ import android.support.v7.widget.Toolbar
 import android.widget.FrameLayout
 import butterknife.BindString
 import butterknife.BindView
+import com.afollestad.materialdialogs.DialogAction
+import com.afollestad.materialdialogs.MaterialDialog
 import com.kennah.wecatch.R
 import com.kennah.wecatch.core.base.BaseActivity
 import com.kennah.wecatch.core.utils.CommonUtils
@@ -20,10 +22,7 @@ import dagger.android.support.HasSupportFragmentInjector
 import permissions.dispatcher.RuntimePermissions
 import javax.inject.Inject
 import permissions.dispatcher.NeedsPermission
-import org.jetbrains.anko.alert
-import org.jetbrains.anko.noButton
 import org.jetbrains.anko.toast
-import org.jetbrains.anko.yesButton
 import permissions.dispatcher.OnShowRationale
 import permissions.dispatcher.PermissionRequest
 import permissions.dispatcher.OnPermissionDenied
@@ -49,6 +48,7 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector, HasServiceInjec
         if (CommonUtils.isServiceRunning(this, MainService::class.java)) {
             stopService(Intent(this, MainService::class.java))
         }
+
         MainActivityPermissionsDispatcher.showLocationWithCheck(this)
     }
 
@@ -75,10 +75,18 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector, HasServiceInjec
     @OnShowRationale(Manifest.permission.ACCESS_FINE_LOCATION)
     fun showRationaleForLocation(request: PermissionRequest) {
 
-        alert(mStringLocationMessage, mStringLocationTitle) {
-            yesButton { request.proceed() }
-            noButton { request.cancel() }
-        }.show()
+        val builder = MaterialDialog.Builder(this)
+
+        builder.apply {
+            title(R.string.permission_location_title)
+            content(R.string.permission_location_message)
+            positiveText(R.string.permission_location_positive)
+            positiveColorRes(R.color.colorPrimaryDark)
+            onPositive { _, _ -> request.proceed() }
+            negativeText(R.string.permission_location_negative)
+            onNegative { _,_ -> request.cancel()  }
+            build().show()
+        }
     }
 
     @NeedsPermission(Manifest.permission.SYSTEM_ALERT_WINDOW)
@@ -94,6 +102,10 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector, HasServiceInjec
 
     fun checkPermission() {
         MainActivityPermissionsDispatcher.requestAlertWindowsWithCheck(this)
+    }
+
+    fun checkLocationPermission() {
+        MainActivityPermissionsDispatcher.showLocationWithCheck(this)
     }
 
     private fun setupFragment() {

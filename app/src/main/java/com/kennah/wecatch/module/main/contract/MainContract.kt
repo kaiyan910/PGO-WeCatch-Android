@@ -14,5 +14,6 @@ interface MainContract {
 
     interface Presenter: BasePresenter<View> {
         fun getPokemon(bound: LatLngBounds, zoom: Float)
+        fun getPokemonWithoutGym(bound: LatLngBounds, zoom: Float, alertList: MutableList<String>)
     }
 }

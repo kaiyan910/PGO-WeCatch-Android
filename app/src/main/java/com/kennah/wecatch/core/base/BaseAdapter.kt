@@ -4,6 +4,7 @@ import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
+import com.kennah.wecatch.core.utils.LogUtils
 import com.kennah.wecatch.module.filter.ui.holder.FilterPokemonGridHolder
 import java.util.ArrayList
 
@@ -26,6 +27,8 @@ abstract class BaseAdapter<T, V>(protected var context: Context) : RecyclerView.
     }
 
     fun setData(data: List<T>) {
+
+        LogUtils.debug(this, "data=$data")
 
         mData.clear()
         mData.addAll(data)
