@@ -51,6 +51,8 @@ class NotificationService : Service(), MainContract.View {
     lateinit var mWindowManager: WindowManager
     @Inject
     lateinit var mPrefs: Prefs
+    @Inject
+    lateinit var mNotificationManager: NotificationManager
 
     lateinit var mBounds: LatLngBounds
 
@@ -101,27 +103,32 @@ class NotificationService : Service(), MainContract.View {
     }
 
     override fun onError(errorCode: Int) {
-
+        setupErrorNotification(errorCode)
         scheduleCall()
     }
 
     override fun onPokemonFound(pokemonList: List<Pokemon>, gymList: List<Gym>) {
 
-        if (pokemonList.isEmpty()) return
+        if (pokemonList.isEmpty()) {
 
-        pokemonList.forEach {
-            mAlertedPokemon.add("${it.pokemonId}|${it.latitude}|${it.longitude}")
+            setupEmptyNotification()
+
+        } else {
+
+            pokemonList.forEach {
+                mAlertedPokemon.add("${it.pokemonId}|${it.latitude}|${it.longitude}")
+            }
+
+            val markers = constructMarkerString(pokemonList)
+            val center = "${mLocationHelper.getLastLocation()!!.latitude},${mLocationHelper.getLastLocation()!!.longitude}"
+            val zoom = calculateZoomLevel()
+            val url = constructStaticMapUrl(center, zoom.toDouble(), markers)
+            val nameList = pokemonList.map({ ResourceUtils.getStringResource(applicationContext, "pokemon_${it.pokemonId}") }).distinct().joinToString(" ")
+
+            LogUtils.debug(this, "url=$url")
+
+            downloadStaticMap(url, pokemonList, nameList)
         }
-
-        val markers = constructMarkerString(pokemonList)
-        val center = "${mLocationHelper.getLastLocation()!!.latitude},${mLocationHelper.getLastLocation()!!.longitude}"
-        val zoom = calculateZoomLevel()
-        val url = constructStaticMapUrl(center, zoom.toDouble(), markers)
-        val nameList = pokemonList.map({ ResourceUtils.getStringResource(applicationContext, "pokemon_${it.pokemonId}") }).distinct().joinToString(" ")
-
-        LogUtils.debug(this, "url=$url")
-
-        downloadStaticMap(url, pokemonList, nameList)
 
         scheduleCall()
     }
@@ -173,6 +180,37 @@ class NotificationService : Service(), MainContract.View {
         "markers=icon:https://img.pokemondb.net/sprites/sun-moon/icon/$name.png|${it.latitude},${it.longitude}"
     }
 
+    private fun setupErrorNotification(errorCode: Int) {
+
+        val now = Constant.DATE_FORMATTER.format(Date())
+        val title = resources.getString(R.string.notification_title_error, now)
+        val message = resources.getString(R.string.notification_message_error, errorCode)
+
+        val mBuilder = NotificationCompat.Builder(this, "wecatch-pokemon")
+                .setSmallIcon(R.drawable.ic_notification)
+                .setColor(ContextCompat.getColor(applicationContext, R.color.colorPrimary))
+                .setLargeIcon(BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher))
+                .setContentTitle(title)
+                .setContentText(message)
+
+        mNotificationManager.notify(FOREGROUND_ID, mBuilder.build())
+    }
+
+    private fun setupEmptyNotification() {
+
+        val now = Constant.DATE_FORMATTER.format(Date())
+        val title = resources.getString(R.string.notification_title_empty, now)
+
+        val mBuilder = NotificationCompat.Builder(this, "wecatch-pokemon")
+                .setSmallIcon(R.drawable.ic_notification)
+                .setColor(ContextCompat.getColor(applicationContext, R.color.colorPrimary))
+                .setLargeIcon(BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher))
+                .setContentTitle(title)
+                .setContentText(getString(R.string.notification_message_empty))
+
+        mNotificationManager.notify(FOREGROUND_ID, mBuilder.build())
+    }
+
     private fun setupNotification(bitmap: Bitmap, pokemonList: List<Pokemon>, nameList: String) {
 
         val intent = Intent(this, MainActivity::class.java)
@@ -187,8 +225,8 @@ class NotificationService : Service(), MainContract.View {
                 PendingIntent.FLAG_UPDATE_CURRENT
         )
 
-        val now = SimpleDateFormat("hh:mm:ss dd/MM/yyyy", Locale.getDefault()).format(Date())
-        val title = String.format(resources.getString(R.string.notification_title), pokemonList.size, now)
+        val now = Constant.DATE_FORMATTER.format(Date())
+        val title = resources.getString(R.string.notification_title, pokemonList.size, now)
 
         val mBuilder = NotificationCompat.Builder(this, "wecatch-pokemon")
                 .setSmallIcon(R.drawable.ic_notification)
@@ -205,7 +243,6 @@ class NotificationService : Service(), MainContract.View {
         mBuilder.setStyle(style)
         mBuilder.setContentIntent(resultPendingIntent)
 
-        val mNotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         mNotificationManager.notify(FOREGROUND_ID, mBuilder.build())
     }
 

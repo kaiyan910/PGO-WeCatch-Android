@@ -31,6 +31,7 @@ import com.kennah.wecatch.core.utils.LogUtils
 import com.kennah.wecatch.core.utils.ResourceUtils
 import com.kennah.wecatch.core.utils.TimeUtils
 import com.kennah.wecatch.core.withDelay
+import com.kennah.wecatch.local.Constant
 import com.kennah.wecatch.local.model.Gym
 import com.kennah.wecatch.local.model.Pokemon
 import com.kennah.wecatch.local.utils.AnimateUtils
@@ -197,6 +198,12 @@ class PokemonMapView @Inject constructor(context: Context,
                     val location = gym.location ?: arrayOf(0.0, 0.0)
 
                     val options = MarkerOptions().position(LatLng(location[1], location[0]))
+
+                    when (gym.raidLevel) {
+                        4 or 5 -> options.zIndex(999F)
+                        else -> { }
+                    }
+
                     options.icon(BitmapDescriptorFactory.fromBitmap(CommonUtils.getBitmapFromView(gymMarker)))
 
                     val marker: Marker = mMap.addMarker(options)
@@ -253,7 +260,13 @@ class PokemonMapView @Inject constructor(context: Context,
     }
 
     private fun createPokemonMarker(pokemon: Pokemon) {
-        val options = MarkerOptions().position(LatLng(pokemon.latitude, pokemon.longitude))
+        val options = MarkerOptions()
+                .position(LatLng(pokemon.latitude, pokemon.longitude))
+
+        if (pokemon.pokemonId in Constant.DEFAULT_RARE_SEARCH) {
+            options.zIndex(999F)
+        }
+
         val resource = ResourceUtils.getDrawableResource(context, "pkm_${pokemon.pokemonId}")
 
         if (pokemon.iv >= 80) {

@@ -29,6 +29,13 @@
     <string name="pokemonWindow_iv_details" translatable="false">(%1$d/%2$d/%3$d)</string>
 
     <string name="notification_title">%d Pokemons Found. (%s)</string>
+
+    <string name="notification_title_empty">Nothing (%s)</string>
+    <string name="notification_message_empty">We found nothing on last search.</string>
+
+    <string name="notification_title_error">Error (%s)</string>
+    <string name="notification_message_error">Reference error code = %d</string>
+
     <string name="notification_foreground_message">We are search Pokemons for you&#8230;</string>
     <string name="notification_foreground_map_message">Overlay map is activated&#8230;</string>
     <string name="notification_foreground_stop">STOP</string>

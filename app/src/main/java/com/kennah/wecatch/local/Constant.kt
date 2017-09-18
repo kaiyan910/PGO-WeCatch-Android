@@ -1,5 +1,8 @@
 package com.kennah.wecatch.local
 
+import java.text.SimpleDateFormat
+import java.util.*
+
 object Constant {
 
     @JvmField
@@ -33,4 +36,7 @@ object Constant {
             3, 6, 9, 26, 31, 34, 45, 59, 62, 65, 68, 71, 76, 94, 103, 112, 113, 130, 131, 134, 135, 136, 137, 143, 147, 148, 149,
             154, 157, 160, 176, 179, 180, 181, 201, 217, 221, 229, 232, 233, 241, 242, 246, 247, 248
     )
+
+    @JvmField
+    val DATE_FORMATTER = SimpleDateFormat("HH:mm:ss dd/MM/yyyy", Locale.getDefault())
 }

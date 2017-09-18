@@ -1,6 +1,7 @@
 package com.kennah.wecatch.core.di.module
 
 import android.app.Application
+import android.app.NotificationManager
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
@@ -22,6 +23,10 @@ class AppModule {
     @Provides
     @AppScope
     fun provideContext(app: Application): Context = app.applicationContext
+
+    @Provides
+    @AppScope
+    fun provideNotificationManager(app: Application): NotificationManager = app.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     @Provides
     @AppScope
