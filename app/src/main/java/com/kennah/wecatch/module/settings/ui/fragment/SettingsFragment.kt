@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
+import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import butterknife.BindView
@@ -16,6 +17,7 @@ import com.kennah.wecatch.local.Constant
 import com.kennah.wecatch.local.Prefs
 import com.kennah.wecatch.local.filter.FilterHandlerFactory
 import com.kennah.wecatch.module.filter.ui.activity.FilterActivity
+import com.kennah.wecatch.module.main.ui.activity.MainActivity
 import org.jetbrains.anko.support.v4.startActivityForResult
 import javax.inject.Inject
 
@@ -29,6 +31,8 @@ class SettingsFragment : BaseFragment() {
     lateinit var mTextIntervalSummary: TextView
     @BindView(R.id.filter_summary)
     lateinit var mTextFilterSummary: TextView
+    @BindView(R.id.map_provider_summary)
+    lateinit var mTextMapProviderSummary: TextView
 
     @Inject
     lateinit var mPrefs: Prefs
@@ -94,13 +98,31 @@ class SettingsFragment : BaseFragment() {
                 FilterActivity.EXTRA_FILTER_TYPE to FilterHandlerFactory.NOTIFICATION)
     }
 
+    @OnClick(R.id.map_provider_container)
+    fun onMapProviderContainerClick() {
+
+        val builder = MaterialDialog.Builder(activity)
+
+        builder.apply {
+            title(R.string.settings_mapProvider_title)
+            items(listOf(Constant.MAP_PROVIDER_GOOGLE, Constant.MAP_PROVIDER_OSM))
+            itemsCallback { _, _, _, text ->
+                mPrefs.setMapProvider(text.toString())
+                mTextMapProviderSummary.text = text.toString()
+
+                val intent = Intent(activity, MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+            }
+            show()
+        }
+    }
+
     private fun initPreferenceView() {
 
         mTextRangeSummary.text = resources.getString(R.string.settings_unit_km, mPrefs.getNotifyDistance())
         mTextIntervalSummary.text = resources.getString(R.string.settings_unit_minute, mPrefs.getNotifyDelay())
-
-        LogUtils.debug("DEBUG#SettingsFragment", "Prefs=[${mPrefs.getPokemonNotifyFilter()}]")
-        LogUtils.debug("DEBUG#SettingsFragment", "Split=[${mPrefs.getPokemonNotifyFilter().split(",").size}]")
+        mTextMapProviderSummary.text = mPrefs.getMapProvider()
 
         updatePokemonListNumber()
     }

@@ -31,7 +31,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 26
         versionCode 1
-        versionName "1.1.0"
+        versionName "1.1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         externalNativeBuild {
@@ -115,6 +115,7 @@ dependencies {
         exclude group: 'com.google.android.gms'
     }
     implementation 'com.google.maps.android:android-maps-utils:0.5'
+    implementation 'org.osmdroid:osmdroid-android:5.6.5@aar'
 
     implementation "org.jetbrains.anko:anko:${anko}"
     implementation "org.jetbrains.anko:anko-coroutines:${anko}"

@@ -1,25 +1,24 @@
 package com.kennah.wecatch.module.main.ui.view
 
-import android.content.Context
 import android.view.View
-import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import butterknife.BindString
 import butterknife.BindView
 import butterknife.ButterKnife
-import com.google.android.gms.maps.model.Marker
 import com.kennah.wecatch.R
+import com.kennah.wecatch.core.utils.LogUtils
 import com.kennah.wecatch.core.utils.ResourceUtils
 import com.kennah.wecatch.core.utils.TimeUtils
 import com.kennah.wecatch.core.withDelay
 import com.kennah.wecatch.local.model.Pokemon
-import com.kennah.wecatch.local.utils.ColorUtils
-import org.jetbrains.anko.textColor
+import org.osmdroid.views.MapView
+import org.osmdroid.views.overlay.Marker
+import org.osmdroid.views.overlay.infowindow.InfoWindow
 import java.text.SimpleDateFormat
 import java.util.*
 
-class MapPokemonWindow(context: Context) : LinearLayout(context) {
+class OsmPokemonWindow(val pokemon: Pokemon, val marker: Marker, val layout: Int, map: MapView) : InfoWindow(layout, map) {
 
     @BindView(R.id.name)
     lateinit var mTextName: TextView
@@ -41,11 +40,14 @@ class MapPokemonWindow(context: Context) : LinearLayout(context) {
     lateinit var mStringIvDetails: String
 
     init {
-        View.inflate(context, R.layout.view_map_pokemon_window, this)
-        ButterKnife.bind(this)
+        ButterKnife.bind(this, mView)
     }
 
-    fun bind(pokemon: Pokemon, marker: Marker) {
+    override fun onOpen(item: Any?) {
+
+        InfoWindow.closeAllInfoWindowsOn(mMapView)
+
+        val context = mView.context
 
         val name = ResourceUtils.getStringResource(context, "pokemon_" + pokemon.pokemonId)
         val timeLeft = TimeUtils.getTimeLeft(pokemon.expireTime, "-")
@@ -55,8 +57,7 @@ class MapPokemonWindow(context: Context) : LinearLayout(context) {
 
         withDelay(1000) {
 
-            if (marker.isInfoWindowShown && !TimeUtils.isExpired(pokemon.expireTime)) {
-                marker.hideInfoWindow()
+            if (isOpen && !TimeUtils.isExpired(pokemon.expireTime)) {
                 marker.showInfoWindow()
             }
         }
@@ -64,7 +65,7 @@ class MapPokemonWindow(context: Context) : LinearLayout(context) {
         if (pokemon.iv != -1) {
             mLayoutPokemonDetails.visibility = View.VISIBLE
 
-            mTextDetails.text = resources.getString(R.string.pokemonWindow_iv_details,
+            mTextDetails.text = mView.context.resources.getString(R.string.pokemonWindow_iv_details,
                     pokemon.iv,
                     pokemon.attack,
                     pokemon.defense,
@@ -76,4 +77,8 @@ class MapPokemonWindow(context: Context) : LinearLayout(context) {
             mTextMove2.text = ResourceUtils.getStringResource(context, "move_" + pokemon.move2)
         }
     }
+
+    override fun onClose() {
+    }
+
 }

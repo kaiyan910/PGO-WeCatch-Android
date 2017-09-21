@@ -20,6 +20,8 @@ class SettingsActivity: BaseActivity(), HasSupportFragmentInjector {
     @Inject
     lateinit var mFragmentInjector: DispatchingAndroidInjector<Fragment>
 
+    private var mNeedRestart = false
+
     override fun afterViews() {
         super.afterViews()
         setupBackNavigation()
@@ -31,6 +33,7 @@ class SettingsActivity: BaseActivity(), HasSupportFragmentInjector {
         if (supportFragmentManager.backStackEntryCount > 0) {
             supportFragmentManager.popBackStack()
         } else {
+
             super.onNavigationPressed()
         }
     }

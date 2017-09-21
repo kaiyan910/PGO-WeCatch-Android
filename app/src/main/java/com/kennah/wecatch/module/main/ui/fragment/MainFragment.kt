@@ -69,12 +69,11 @@ class MainFragment : BaseFragment() {
         }
 
         mLayoutMapContainer.addView(mPokemonMapView)
-
-        extraFromIntent()
     }
 
     override fun onResume() {
         super.onResume()
+        extraFromIntent()
         mPokemonMapView.onResume()
 
     }
@@ -138,7 +137,9 @@ class MainFragment : BaseFragment() {
     private fun extraFromIntent() {
 
         if (activity.intent.hasExtra(Constant.NOTIFICATION_RESULT)) {
+
             val pokemonList = activity.intent.getParcelableArrayListExtra<Pokemon>(Constant.NOTIFICATION_RESULT)
+            LogUtils.debug(this, "pokemon size = ${pokemonList.size}")
             mPokemonMapView.cache(pokemonList)
         }
     }

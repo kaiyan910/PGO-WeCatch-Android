@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="150dp"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:orientation="vertical"
+    android:background="@android:color/white"
     android:padding="@dimen/spacing_4">
 
     <TextView
         android:id="@+id/name"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:text="Wooper (10:50)"
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/fontSize_14"
@@ -20,128 +20,45 @@
         android:id="@+id/expire_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:text="08:31:00 PM"
         android:textStyle="bold" />
 
     <RelativeLayout
         android:id="@+id/pokemon_details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
         android:visibility="gone"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/data_wrapper"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/details"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2">
-
-
-            <TextView
-                android:id="@+id/iv"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="100%"
-                android:drawableLeft="@drawable/ic_iv"
-                android:textColor="@color/iv"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/cp"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawablePadding="@dimen/spacing_4"
-                android:gravity="center"
-                android:text="999"
-                android:textColor="@android:color/black"
-                android:drawableLeft="@drawable/ic_cp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/iv_details"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/data_wrapper"
-            android:orientation="horizontal"
-            android:weightSum="3">
-
-            <TextView
-                android:id="@+id/iv_attack"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawableLeft="@drawable/ic_attack"
-                android:drawablePadding="@dimen/spacing_2"
-                android:gravity="center"
-                android:padding="@dimen/spacing_2"
-                android:text="15"
-                android:textColor="@color/iv_details"
-                android:textSize="@dimen/fontSize_14"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/iv_defense"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawableLeft="@drawable/ic_defense"
-                android:drawablePadding="@dimen/spacing_2"
-                android:gravity="center"
-                android:padding="@dimen/spacing_2"
-                android:text="15"
-                android:textColor="@color/iv_details"
-                android:textSize="@dimen/fontSize_14"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/iv_stamina"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawableLeft="@drawable/ic_stamina"
-                android:drawablePadding="@dimen/spacing_2"
-                android:gravity="center"
-                android:padding="@dimen/spacing_2"
-                android:text="15"
-                android:textColor="@color/iv_details"
-                android:textSize="@dimen/fontSize_14"
-                android:textStyle="bold" />
-
-        </LinearLayout>
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:text="100% (15/15/15) | CP 999"/>
 
 
         <TextView
-            android:id="@+id/move1"
+            android:id="@+id/move_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/iv_details"
-            android:layout_centerHorizontal="true"
+            android:layout_below="@id/details"
             android:drawableLeft="@drawable/ic_skill"
             android:drawablePadding="@dimen/spacing_4"
             android:gravity="center"
-            android:text="MUP ATTACK"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/colorPrimary"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/move2"
+            android:id="@+id/move_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/move1"
-            android:layout_centerHorizontal="true"
+            android:layout_below="@id/move_1"
             android:drawableLeft="@drawable/ic_skill"
             android:drawablePadding="@dimen/spacing_4"
             android:gravity="center"
-            android:text="MUP ATTACK"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/colorPrimary"
             android:textStyle="bold" />
 
     </RelativeLayout>

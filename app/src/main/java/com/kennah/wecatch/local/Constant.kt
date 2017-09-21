@@ -13,6 +13,10 @@ object Constant {
     val NOTIFICATION_ACTION_STOP_MAP = "wecatch_android.notification.stop.map"
     @JvmField
     val NOTIFICATION_BROADCAST = 88833
+    @JvmField
+    val MAP_PROVIDER_GOOGLE = "GOOGLE"
+    @JvmField
+    val MAP_PROVIDER_OSM = "OSM"
 
     @JvmField
     val POKEMON_GENERATION = 2

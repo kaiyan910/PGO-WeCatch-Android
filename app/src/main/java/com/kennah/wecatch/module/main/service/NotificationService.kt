@@ -177,7 +177,7 @@ class NotificationService : Service(), MainContract.View {
 
         val name = ResourceUtils.getStringResource(applicationContext, "pokemon_${it.pokemonId}").toLowerCase()
 
-        "markers=icon:https://img.pokemondb.net/sprites/sun-moon/icon/$name.png|${it.latitude},${it.longitude}"
+        "markers=${it.latitude},${it.longitude}"
     }
 
     private fun setupErrorNotification(errorCode: Int) {
@@ -220,8 +220,9 @@ class NotificationService : Service(), MainContract.View {
         val stackBuilder = TaskStackBuilder.create(this)
 
         stackBuilder.addNextIntent(intent)
+        val uniqueInt = (System.currentTimeMillis() and 0xfffffff).toInt()
         val resultPendingIntent = stackBuilder.getPendingIntent(
-                0,
+                uniqueInt,
                 PendingIntent.FLAG_UPDATE_CURRENT
         )
 

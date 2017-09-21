@@ -16,11 +16,12 @@ import com.kennah.wecatch.R
 import android.view.WindowManager
 import android.widget.FrameLayout
 import com.kennah.wecatch.core.utils.CommonUtils
-import com.kennah.wecatch.core.utils.LogUtils
+import com.kennah.wecatch.local.Constant
+import com.kennah.wecatch.local.Prefs
 import javax.inject.Inject
 
 @SuppressLint("ViewConstructor")
-class FloatingMapView @Inject constructor(context: Context, private val pokemonMapView: PokemonMapView) : RelativeLayout(context) {
+class FloatingMapView @Inject constructor(context: Context, private val pokemonMapView: PokemonMapView, private val prefs: Prefs) : RelativeLayout(context) {
 
     @BindView(R.id.wrapper)
     lateinit var mLayoutWrapper: RelativeLayout
@@ -111,7 +112,7 @@ class FloatingMapView @Inject constructor(context: Context, private val pokemonM
             }
         }
 
-        mLayoutResizeArea.setOnTouchListener { view, event ->
+        mLayoutResizeArea.setOnTouchListener { _, event ->
             when(event.action) {
 
                 MotionEvent.ACTION_DOWN -> {
@@ -149,6 +150,11 @@ class FloatingMapView @Inject constructor(context: Context, private val pokemonM
                 else -> false
             }
         }
+
+        if (prefs.getMapProvider() == Constant.MAP_PROVIDER_OSM) {
+            mLayoutMapContainer.addView(pokemonMapView)
+            pokemonMapView.visibility = View.GONE
+        }
     }
 
     @OnClick(R.id.scan)
@@ -159,7 +165,12 @@ class FloatingMapView @Inject constructor(context: Context, private val pokemonM
     @OnClick(R.id.minimize)
     fun minimize() {
 
-        mLayoutMapContainer.removeView(pokemonMapView)
+        if (prefs.getMapProvider() == Constant.MAP_PROVIDER_OSM) {
+            pokemonMapView.visibility = View.GONE
+        } else {
+            mLayoutMapContainer.removeView(pokemonMapView)
+        }
+
         pokemonMapView.onPause()
 
         mOpened = false
@@ -186,7 +197,11 @@ class FloatingMapView @Inject constructor(context: Context, private val pokemonM
     }
 
     private fun maximize() {
-        mLayoutMapContainer.addView(pokemonMapView)
+        if (prefs.getMapProvider() == Constant.MAP_PROVIDER_OSM) {
+            pokemonMapView.visibility = View.VISIBLE
+        } else {
+            mLayoutMapContainer.addView(pokemonMapView)
+        }
         pokemonMapView.onResume()
 
         mOpened = true

@@ -18,6 +18,8 @@ class Prefs @Inject constructor(private val sharedPreference: SharedPreferences)
         val POKEMON_FILTER = "pokemon_filter"
         @JvmStatic
         val POKEMON_NOTIFY_FILTER = "pokemon_notify_filter"
+        @JvmStatic
+        val MAP_PROVIDER ="map_provider"
     }
 
     fun getNotifyDistance(): Int = sharedPreference.getInt(NOTIFY_DISTANCE, 2)
@@ -49,6 +51,11 @@ class Prefs @Inject constructor(private val sharedPreference: SharedPreferences)
     fun getPokemonNotifyFilter(): String = sharedPreference.getString(POKEMON_NOTIFY_FILTER, "")
     fun setPokemonNotifyFilter(value: String) = sharedPreference.edit()
             .putString(POKEMON_NOTIFY_FILTER, value)
+            .apply()
+
+    fun getMapProvider(): String = sharedPreference.getString(MAP_PROVIDER, Constant.MAP_PROVIDER_GOOGLE)
+    fun setMapProvider(value: String) = sharedPreference.edit()
+            .putString(MAP_PROVIDER, value)
             .apply()
 
     fun getSharedPreferences(): SharedPreferences = sharedPreference

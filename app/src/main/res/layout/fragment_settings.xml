@@ -92,4 +92,40 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/category_app"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/filter_container"
+        android:padding="@dimen/spacing_16"
+        android:text="@string/settings_application"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/map_provider_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/category_app"
+        android:background="@drawable/bg_divider"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_16">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_mapProvider_title"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/fontSize_14" />
+
+        <TextView
+            android:id="@+id/map_provider_summary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="GOOGLE"
+            android:textColor="@color/text"
+            android:textSize="@dimen/fontSize_12" />
+
+    </LinearLayout>
+
 </RelativeLayout>

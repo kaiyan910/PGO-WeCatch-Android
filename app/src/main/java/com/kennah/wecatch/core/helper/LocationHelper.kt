@@ -31,11 +31,9 @@ class LocationHelper @Inject constructor (val context: Context):
     private var callback: ((location: LatLng) -> Unit)? = null
 
     override fun onConnectionSuspended(p0: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onConnectionFailed(p0: ConnectionResult) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onConnected(p0: Bundle?) {
