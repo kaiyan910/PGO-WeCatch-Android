@@ -17,7 +17,7 @@ In order to protect the website, the security part is not included in this proje
 ```
 MIT License
 
-Copyright (c) [2017] [Kenny Lau]
+Copyright (c) 2017 KENNY LAU
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
