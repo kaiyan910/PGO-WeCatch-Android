@@ -6,6 +6,9 @@ In order to protect the website, the security part is not included in this proje
 
 <img src="https://raw.githubusercontent.com/kaiyan910/PGO-WeCatch-Android/master/screenshot_1.png" width="200"> <img src="https://raw.githubusercontent.com/kaiyan910/PGO-WeCatch-Android/master/screenshot_2.png" width="200"> <img src="https://raw.githubusercontent.com/kaiyan910/PGO-WeCatch-Android/master/screenshot_3.png" width="200"> <img src="https://raw.githubusercontent.com/kaiyan910/PGO-WeCatch-Android/master/screenshot_4.png" width="200">
 
+## v1.1.2
+- Adding Generation 3's Pokemons
+
 ## v1.1.1
 - OSM is added as another map provider
 

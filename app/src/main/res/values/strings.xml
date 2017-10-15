@@ -18,6 +18,7 @@
         <item>RAID</item>
         <item>GEN. 1</item>
         <item>GEN. 2</item>
+        <item>GEN. 3</item>
     </string-array>
 
     <string name="filter_gym">GYM</string>

@@ -19,10 +19,10 @@ object Constant {
     val MAP_PROVIDER_OSM = "OSM"
 
     @JvmField
-    val POKEMON_GENERATION = 2
+    val POKEMON_GENERATION = 3
 
     @JvmField
-    val MAX_POKEMON = 251
+    val MAX_POKEMON = 386
     @JvmField
     val GYM = (0..5)
     @JvmField
@@ -30,7 +30,11 @@ object Constant {
     @JvmField
     val GEN_2 = (152..251)
     @JvmField
-    val GENERATION = listOf(GEN_1, GEN_2)
+    val GEN_3 = (252..386)
+    @JvmField
+    val GENERATION = listOf(GEN_1, GEN_2, GEN_3)
+    @JvmField
+    val MOVE_SET = 281
 
     @JvmField
     val REQ_FILTER = 10001

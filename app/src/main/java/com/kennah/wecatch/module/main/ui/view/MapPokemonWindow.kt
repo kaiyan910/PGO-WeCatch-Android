@@ -13,6 +13,7 @@ import com.kennah.wecatch.R
 import com.kennah.wecatch.core.utils.ResourceUtils
 import com.kennah.wecatch.core.utils.TimeUtils
 import com.kennah.wecatch.core.withDelay
+import com.kennah.wecatch.local.Constant
 import com.kennah.wecatch.local.model.Pokemon
 import com.kennah.wecatch.local.utils.ColorUtils
 import org.jetbrains.anko.textColor
@@ -72,8 +73,17 @@ class MapPokemonWindow(context: Context) : LinearLayout(context) {
                     pokemon.cp
             )
 
-            mTextMove1.text = ResourceUtils.getStringResource(context, "move_" + pokemon.move1)
-            mTextMove2.text = ResourceUtils.getStringResource(context, "move_" + pokemon.move2)
+            mTextMove1.text = if (pokemon.move1 > Constant.MOVE_SET) {
+                ResourceUtils.getStringResource(context, "move_0")
+            } else {
+                ResourceUtils.getStringResource(context, "move_" + pokemon.move1)
+            }
+
+            mTextMove2.text = if (pokemon.move2 > Constant.MOVE_SET) {
+                ResourceUtils.getStringResource(context, "move_0")
+            } else {
+                ResourceUtils.getStringResource(context, "move_" + pokemon.move2)
+            }
         }
     }
 }
