@@ -221,5 +221,15 @@
     <string name="move_279">CRUNCH</string>
     <string name="move_280">FOUL PLAY</string>
     <string name="move_281">HIDDEN POWER</string>
+    <string name="move_282">TAKE DOWN</string>
+    <string name="move_283">WATERFALL</string>
+    <string name="move_284">SURF</string>
+    <string name="move_285">DRACO METEOR</string>
+    <string name="move_286">DOOM DESIRE</string>
+    <string name="move_287">YAWN</string>
+    <string name="move_288">PHYCHO BOOST</string>
+    <string name="move_289">ORIGIN PLUSE</string>
+    <string name="move_290">PRECIPICE BLADES</string>
+    <string name="move_291">PRESENT</string>
 
 </resources>
