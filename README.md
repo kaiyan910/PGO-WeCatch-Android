@@ -1,6 +1,6 @@
 # PGO-WeCatch-Android [Deprecated]
 
-The official app is out not please download the offical APK to support WeCatch.
+The official app is out now, please download the offical APK to support WeCatch.
 https://www.wecatch.net/
 
 A non-offical Android client for WeCatch.net written in Kotlin.
